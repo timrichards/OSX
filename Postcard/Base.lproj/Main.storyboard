@@ -60,7 +60,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlbertEinsteinStamp.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="c0v-bF-anO">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AlbertEinsteinStamp.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="c0v-bF-anO">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="224" y="137" width="80" height="80"/>
@@ -106,6 +106,12 @@
                                     <rect key="frame" x="16" y="263" width="288" height="285"/>
                                 </variation>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nbg-MH-cAF">
+                                <rect key="frame" x="26" y="106" width="48" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -133,11 +139,12 @@
                         <outlet property="enterNameTextField" destination="7gk-nP-Dym" id="kOP-qB-V3e"/>
                         <outlet property="mailButton" destination="g6U-Ec-p0h" id="src-uB-bgX"/>
                         <outlet property="messageLabel" destination="xU3-QR-Kzc" id="16T-C1-xbl"/>
+                        <outlet property="nameLabel" destination="Nbg-MH-cAF" id="VQx-SJ-OdC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1101" y="184"/>
+            <point key="canvasLocation" x="1094" y="175"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NSA-5A-LfZ">
