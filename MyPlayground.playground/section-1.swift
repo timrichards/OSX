@@ -3,41 +3,45 @@
 import UIKit
 
 var str = "Hello, playground"
-var firstInteger = 0
-var secondInteger = 29
-var thirdInteger = -1000858
-var x = 5
-var a = 1, y = 2, z = 3
-var b = 5
-var p = 1, d = 2, q = 3
-var discountAtDepartmentStore = 0.3
-var explicitInt:Int = 3
+let firstInteger = 0
+let secondInteger = 29
+let thirdInteger = -1000858
+let x = 5
+let a = 1, y = 2, z = 3
+let b = 5
+let p = 1, d = 2, q = 3
+let discountAtDepartmentStore = 0.3
+let explicitInt:Int = 3
 
-var discountOnShoesAtStore = 0.3
-var priceOfShoes:Double = 33
+let discountOnShoesAtStore = 0.3
+let priceOfShoes:Double = 33
 var priceAfterDiscount = priceOfShoes * (1 - discountOnShoesAtStore)
-var downPayment = 10.5
+let downPayment = 10.5
 priceAfterDiscount -= downPayment
-var 😜 = 1.234
-var 😥 = 2.345
+let 😜 = 1.234
+let 😥 = 2.345
 var w = 😜 * 😥
 
 typealias WholeNumber = Int
 
 var r:WholeNumber
 
-var largNumber = 1_000_000_000_000
-var weirdNumber = 1_0_0_0_0
+let largNumber = 1_000_000_000_000
+let weirdNumber = 1_0_0_0_0
 
 str = "Hello world"
-var st1 = str + " today"
+let st1 = str + " today"
 str.uppercaseString
 st1.capitalizedString
 
 //var char = 'a'
 //var char:Character = "aa"
-var char:Character = "a"
+let char:Character = "a"
 
-var stringFromValue = "\(😜)"
-var intFromString = stringFromValue.toInt()
-var doubleFromString = Double((stringFromValue as NSString).doubleValue)
+let stringFromValue = "\(😜)"
+let intFromString = stringFromValue.toInt()
+let doubleFromString = Double((stringFromValue as NSString).doubleValue)
+
+let constant = stringFromValue
+//constant = "test"
+//let emptyConstant
