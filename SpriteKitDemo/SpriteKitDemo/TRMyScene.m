@@ -14,6 +14,10 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
+        SKSpriteNode *background = [SKSpriteNode spriteNodeWithImageNamed:@"Space"];
+        background.position = CGPointMake(size.width/2, size.height/2);
+        [self addChild:background];
+        
         self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
         
         SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -50,6 +54,7 @@
         
         SKSpriteNode *square = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(20, 20)];
         [sprite addChild:square];
+        [square runAction:[SKAction repeatActionForever:action3]];
     }
 }
 

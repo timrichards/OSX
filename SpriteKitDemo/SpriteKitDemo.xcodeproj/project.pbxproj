@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		225885F719D8A571007C9740 /* Space@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 225885F619D8A571007C9740 /* Space@2x.png */; };
 		22F82EEC19D890A7001A2A29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F82EEB19D890A7001A2A29 /* Foundation.framework */; };
 		22F82EEE19D890A7001A2A29 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F82EED19D890A7001A2A29 /* CoreGraphics.framework */; };
 		22F82EF019D890A7001A2A29 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F82EEF19D890A7001A2A29 /* UIKit.framework */; };
@@ -17,7 +18,7 @@
 		22F82F0119D890A7001A2A29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22F82EFF19D890A7001A2A29 /* Main.storyboard */; };
 		22F82F0419D890A7001A2A29 /* TRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F82F0319D890A7001A2A29 /* TRViewController.m */; };
 		22F82F0719D890A7001A2A29 /* TRMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F82F0619D890A7001A2A29 /* TRMyScene.m */; };
-		22F82F0919D890A7001A2A29 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 22F82F0819D890A7001A2A29 /* Spaceship.png */; };
+		22F82F0919D890A7001A2A29 /* Spaceship@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22F82F0819D890A7001A2A29 /* Spaceship@2x.png */; };
 		22F82F0B19D890A7001A2A29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F82F0A19D890A7001A2A29 /* Images.xcassets */; };
 		22F82F1219D890A7001A2A29 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F82F1119D890A7001A2A29 /* XCTest.framework */; };
 		22F82F1319D890A7001A2A29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F82EEB19D890A7001A2A29 /* Foundation.framework */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		225885F619D8A571007C9740 /* Space@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Space@2x.png"; sourceTree = "<group>"; };
 		22F82EE819D890A7001A2A29 /* SpriteKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F82EEB19D890A7001A2A29 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22F82EED19D890A7001A2A29 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,7 +55,7 @@
 		22F82F0319D890A7001A2A29 /* TRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRViewController.m; sourceTree = "<group>"; };
 		22F82F0519D890A7001A2A29 /* TRMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRMyScene.h; sourceTree = "<group>"; };
 		22F82F0619D890A7001A2A29 /* TRMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRMyScene.m; sourceTree = "<group>"; };
-		22F82F0819D890A7001A2A29 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		22F82F0819D890A7001A2A29 /* Spaceship@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Spaceship@2x.png"; sourceTree = "<group>"; };
 		22F82F0A19D890A7001A2A29 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		22F82F1019D890A7001A2A29 /* SpriteKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F82F1119D890A7001A2A29 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -128,7 +130,7 @@
 				22F82F0319D890A7001A2A29 /* TRViewController.m */,
 				22F82F0519D890A7001A2A29 /* TRMyScene.h */,
 				22F82F0619D890A7001A2A29 /* TRMyScene.m */,
-				22F82F0819D890A7001A2A29 /* Spaceship.png */,
+				22F82F0819D890A7001A2A29 /* Spaceship@2x.png */,
 				22F82F0A19D890A7001A2A29 /* Images.xcassets */,
 				22F82EF419D890A7001A2A29 /* Supporting Files */,
 			);
@@ -138,6 +140,7 @@
 		22F82EF419D890A7001A2A29 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				225885F619D8A571007C9740 /* Space@2x.png */,
 				22F82EF519D890A7001A2A29 /* SpriteKitDemo-Info.plist */,
 				22F82EF619D890A7001A2A29 /* InfoPlist.strings */,
 				22F82EF919D890A7001A2A29 /* main.m */,
@@ -241,9 +244,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				225885F719D8A571007C9740 /* Space@2x.png in Resources */,
 				22F82EF819D890A7001A2A29 /* InfoPlist.strings in Resources */,
 				22F82F0B19D890A7001A2A29 /* Images.xcassets in Resources */,
-				22F82F0919D890A7001A2A29 /* Spaceship.png in Resources */,
+				22F82F0919D890A7001A2A29 /* Spaceship@2x.png in Resources */,
 				22F82F0119D890A7001A2A29 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -473,6 +477,7 @@
 				22F82F2319D890A7001A2A29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22F82F2419D890A7001A2A29 /* Build configuration list for PBXNativeTarget "SpriteKitDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +486,7 @@
 				22F82F2619D890A7001A2A29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
