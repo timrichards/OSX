@@ -55,11 +55,22 @@
         SKSpriteNode *square = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(20, 20)];
         [sprite addChild:square];
         [square runAction:[SKAction repeatActionForever:action3]];
+        
+
+        SKSpriteNode *leftFlame = [SKSpriteNode spriteNodeWithImageNamed:@"Flame"];
+        leftFlame.anchorPoint = CGPointMake(.5, 1);
+        leftFlame.position = CGPointMake(-12, -87);
+        [sprite addChild:leftFlame];
+
+        SKSpriteNode *rightFlame = [leftFlame copy];
+        rightFlame.position = CGPointMake(12, -87);
+        [sprite addChild:rightFlame];
+
     }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    /* Called before each frame is rendered */;
 }
 
 @end
