@@ -38,11 +38,18 @@
         
         sprite.position = location;
         
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
+        NSArray *myArray = [NSArray arrayWithObjects: [SKAction rotateByAngle:M_PI duration:1],
+                   [SKAction moveByX:0.0f y: 200.0f duration:1],
+                   nil];
+        SKAction *action3 = [SKAction group:myArray];
         
-        [sprite runAction:[SKAction repeatActionForever:action]];
+        [sprite runAction:[SKAction repeatActionForever:action3]];
         
         [self addChild:sprite];
+        
+        
+        SKSpriteNode *square = [SKSpriteNode spriteNodeWithColor:[SKColor redColor] size:CGSizeMake(20, 20)];
+        [sprite addChild:square];
     }
 }
 
