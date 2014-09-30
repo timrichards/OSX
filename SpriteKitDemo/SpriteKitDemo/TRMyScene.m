@@ -60,6 +60,10 @@
         SKSpriteNode *leftFlame = [SKSpriteNode spriteNodeWithImageNamed:@"Flame"];
         leftFlame.anchorPoint = CGPointMake(.5, 1);
         leftFlame.position = CGPointMake(-12, -87);
+        [leftFlame runAction:[SKAction repeatActionForever:[SKAction sequence:[NSArray arrayWithObjects:
+             [SKAction resizeByWidth:-18 height:-43 duration:.1],
+             [SKAction resizeByWidth:18 height:43 duration:.1],
+             nil]]]];
         [sprite addChild:leftFlame];
 
         SKSpriteNode *rightFlame = [leftFlame copy];
