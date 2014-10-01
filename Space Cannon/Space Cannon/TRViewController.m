@@ -1,8 +1,8 @@
 //
 //  TRViewController.m
-//  SpriteKitDemo
+//  Space Cannon
 //
-//  Created by Tim on 9/28/14.
+//  Created by Tim on 9/30/14.
 //  Copyright (c) 2014 Tim. All rights reserved.
 //
 
@@ -41,6 +41,11 @@
     } else {
         return UIInterfaceOrientationMaskAll;
     }
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning
