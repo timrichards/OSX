@@ -1,0 +1,492 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2211D0F619DE16B0004E48B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D0F519DE16B0004E48B1 /* Foundation.framework */; };
+		2211D0F819DE16B0004E48B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D0F719DE16B0004E48B1 /* CoreGraphics.framework */; };
+		2211D0FA19DE16B1004E48B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D0F919DE16B1004E48B1 /* UIKit.framework */; };
+		2211D0FC19DE16B1004E48B1 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D0FB19DE16B1004E48B1 /* SpriteKit.framework */; };
+		2211D10219DE16B1004E48B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2211D10019DE16B1004E48B1 /* InfoPlist.strings */; };
+		2211D10419DE16B1004E48B1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211D10319DE16B1004E48B1 /* main.m */; };
+		2211D10819DE16B1004E48B1 /* TRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211D10719DE16B1004E48B1 /* TRAppDelegate.m */; };
+		2211D10B19DE16B1004E48B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2211D10919DE16B1004E48B1 /* Main.storyboard */; };
+		2211D10E19DE16B1004E48B1 /* TRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211D10D19DE16B1004E48B1 /* TRViewController.m */; };
+		2211D11119DE16B1004E48B1 /* TRMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211D11019DE16B1004E48B1 /* TRMyScene.m */; };
+		2211D11319DE16B1004E48B1 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 2211D11219DE16B1004E48B1 /* Spaceship.png */; };
+		2211D11519DE16B1004E48B1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2211D11419DE16B1004E48B1 /* Images.xcassets */; };
+		2211D11C19DE16B1004E48B1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D11B19DE16B1004E48B1 /* XCTest.framework */; };
+		2211D11D19DE16B1004E48B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D0F519DE16B0004E48B1 /* Foundation.framework */; };
+		2211D11E19DE16B1004E48B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2211D0F919DE16B1004E48B1 /* UIKit.framework */; };
+		2211D12619DE16B1004E48B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2211D12419DE16B1004E48B1 /* InfoPlist.strings */; };
+		2211D12819DE16B1004E48B1 /* Sprite_Kite_Demo_SoccerballTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2211D12719DE16B1004E48B1 /* Sprite_Kite_Demo_SoccerballTests.m */; };
+		2211D13219DE1803004E48B1 /* SoccerBall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2211D13119DE1803004E48B1 /* SoccerBall@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2211D11F19DE16B1004E48B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2211D0EA19DE16B0004E48B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2211D0F119DE16B0004E48B1;
+			remoteInfo = "Sprite Kite Demo Soccerball";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2211D0F219DE16B0004E48B1 /* Sprite Kite Demo Soccerball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sprite Kite Demo Soccerball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2211D0F519DE16B0004E48B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		2211D0F719DE16B0004E48B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2211D0F919DE16B1004E48B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2211D0FB19DE16B1004E48B1 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		2211D0FF19DE16B1004E48B1 /* Sprite Kite Demo Soccerball-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sprite Kite Demo Soccerball-Info.plist"; sourceTree = "<group>"; };
+		2211D10119DE16B1004E48B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2211D10319DE16B1004E48B1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2211D10519DE16B1004E48B1 /* Sprite Kite Demo Soccerball-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sprite Kite Demo Soccerball-Prefix.pch"; sourceTree = "<group>"; };
+		2211D10619DE16B1004E48B1 /* TRAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRAppDelegate.h; sourceTree = "<group>"; };
+		2211D10719DE16B1004E48B1 /* TRAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRAppDelegate.m; sourceTree = "<group>"; };
+		2211D10A19DE16B1004E48B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2211D10C19DE16B1004E48B1 /* TRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRViewController.h; sourceTree = "<group>"; };
+		2211D10D19DE16B1004E48B1 /* TRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRViewController.m; sourceTree = "<group>"; };
+		2211D10F19DE16B1004E48B1 /* TRMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TRMyScene.h; sourceTree = "<group>"; };
+		2211D11019DE16B1004E48B1 /* TRMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TRMyScene.m; sourceTree = "<group>"; };
+		2211D11219DE16B1004E48B1 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		2211D11419DE16B1004E48B1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2211D11A19DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sprite Kite Demo SoccerballTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2211D11B19DE16B1004E48B1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		2211D12319DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sprite Kite Demo SoccerballTests-Info.plist"; sourceTree = "<group>"; };
+		2211D12519DE16B1004E48B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2211D12719DE16B1004E48B1 /* Sprite_Kite_Demo_SoccerballTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sprite_Kite_Demo_SoccerballTests.m; sourceTree = "<group>"; };
+		2211D13119DE1803004E48B1 /* SoccerBall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SoccerBall@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2211D0EF19DE16B0004E48B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2211D0F819DE16B0004E48B1 /* CoreGraphics.framework in Frameworks */,
+				2211D0FA19DE16B1004E48B1 /* UIKit.framework in Frameworks */,
+				2211D0FC19DE16B1004E48B1 /* SpriteKit.framework in Frameworks */,
+				2211D0F619DE16B0004E48B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2211D11719DE16B1004E48B1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2211D11C19DE16B1004E48B1 /* XCTest.framework in Frameworks */,
+				2211D11E19DE16B1004E48B1 /* UIKit.framework in Frameworks */,
+				2211D11D19DE16B1004E48B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2211D0E919DE16B0004E48B1 = {
+			isa = PBXGroup;
+			children = (
+				2211D0FD19DE16B1004E48B1 /* Sprite Kite Demo Soccerball */,
+				2211D12119DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests */,
+				2211D0F419DE16B0004E48B1 /* Frameworks */,
+				2211D0F319DE16B0004E48B1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2211D0F319DE16B0004E48B1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2211D0F219DE16B0004E48B1 /* Sprite Kite Demo Soccerball.app */,
+				2211D11A19DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2211D0F419DE16B0004E48B1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2211D0F519DE16B0004E48B1 /* Foundation.framework */,
+				2211D0F719DE16B0004E48B1 /* CoreGraphics.framework */,
+				2211D0F919DE16B1004E48B1 /* UIKit.framework */,
+				2211D0FB19DE16B1004E48B1 /* SpriteKit.framework */,
+				2211D11B19DE16B1004E48B1 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2211D0FD19DE16B1004E48B1 /* Sprite Kite Demo Soccerball */ = {
+			isa = PBXGroup;
+			children = (
+				2211D10619DE16B1004E48B1 /* TRAppDelegate.h */,
+				2211D10719DE16B1004E48B1 /* TRAppDelegate.m */,
+				2211D10919DE16B1004E48B1 /* Main.storyboard */,
+				2211D10C19DE16B1004E48B1 /* TRViewController.h */,
+				2211D10D19DE16B1004E48B1 /* TRViewController.m */,
+				2211D10F19DE16B1004E48B1 /* TRMyScene.h */,
+				2211D11019DE16B1004E48B1 /* TRMyScene.m */,
+				2211D11219DE16B1004E48B1 /* Spaceship.png */,
+				2211D11419DE16B1004E48B1 /* Images.xcassets */,
+				2211D0FE19DE16B1004E48B1 /* Supporting Files */,
+			);
+			path = "Sprite Kite Demo Soccerball";
+			sourceTree = "<group>";
+		};
+		2211D0FE19DE16B1004E48B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2211D13119DE1803004E48B1 /* SoccerBall@2x.png */,
+				2211D0FF19DE16B1004E48B1 /* Sprite Kite Demo Soccerball-Info.plist */,
+				2211D10019DE16B1004E48B1 /* InfoPlist.strings */,
+				2211D10319DE16B1004E48B1 /* main.m */,
+				2211D10519DE16B1004E48B1 /* Sprite Kite Demo Soccerball-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2211D12119DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests */ = {
+			isa = PBXGroup;
+			children = (
+				2211D12719DE16B1004E48B1 /* Sprite_Kite_Demo_SoccerballTests.m */,
+				2211D12219DE16B1004E48B1 /* Supporting Files */,
+			);
+			path = "Sprite Kite Demo SoccerballTests";
+			sourceTree = "<group>";
+		};
+		2211D12219DE16B1004E48B1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2211D12319DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests-Info.plist */,
+				2211D12419DE16B1004E48B1 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2211D0F119DE16B0004E48B1 /* Sprite Kite Demo Soccerball */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2211D12B19DE16B1004E48B1 /* Build configuration list for PBXNativeTarget "Sprite Kite Demo Soccerball" */;
+			buildPhases = (
+				2211D0EE19DE16B0004E48B1 /* Sources */,
+				2211D0EF19DE16B0004E48B1 /* Frameworks */,
+				2211D0F019DE16B0004E48B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sprite Kite Demo Soccerball";
+			productName = "Sprite Kite Demo Soccerball";
+			productReference = 2211D0F219DE16B0004E48B1 /* Sprite Kite Demo Soccerball.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2211D11919DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2211D12E19DE16B1004E48B1 /* Build configuration list for PBXNativeTarget "Sprite Kite Demo SoccerballTests" */;
+			buildPhases = (
+				2211D11619DE16B1004E48B1 /* Sources */,
+				2211D11719DE16B1004E48B1 /* Frameworks */,
+				2211D11819DE16B1004E48B1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2211D12019DE16B1004E48B1 /* PBXTargetDependency */,
+			);
+			name = "Sprite Kite Demo SoccerballTests";
+			productName = "Sprite Kite Demo SoccerballTests";
+			productReference = 2211D11A19DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2211D0EA19DE16B0004E48B1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TR;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Tim;
+				TargetAttributes = {
+					2211D11919DE16B1004E48B1 = {
+						TestTargetID = 2211D0F119DE16B0004E48B1;
+					};
+				};
+			};
+			buildConfigurationList = 2211D0ED19DE16B0004E48B1 /* Build configuration list for PBXProject "Sprite Kite Demo Soccerball" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2211D0E919DE16B0004E48B1;
+			productRefGroup = 2211D0F319DE16B0004E48B1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2211D0F119DE16B0004E48B1 /* Sprite Kite Demo Soccerball */,
+				2211D11919DE16B1004E48B1 /* Sprite Kite Demo SoccerballTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2211D0F019DE16B0004E48B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2211D13219DE1803004E48B1 /* SoccerBall@2x.png in Resources */,
+				2211D10219DE16B1004E48B1 /* InfoPlist.strings in Resources */,
+				2211D11519DE16B1004E48B1 /* Images.xcassets in Resources */,
+				2211D11319DE16B1004E48B1 /* Spaceship.png in Resources */,
+				2211D10B19DE16B1004E48B1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2211D11819DE16B1004E48B1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2211D12619DE16B1004E48B1 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2211D0EE19DE16B0004E48B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2211D11119DE16B1004E48B1 /* TRMyScene.m in Sources */,
+				2211D10819DE16B1004E48B1 /* TRAppDelegate.m in Sources */,
+				2211D10419DE16B1004E48B1 /* main.m in Sources */,
+				2211D10E19DE16B1004E48B1 /* TRViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2211D11619DE16B1004E48B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2211D12819DE16B1004E48B1 /* Sprite_Kite_Demo_SoccerballTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2211D12019DE16B1004E48B1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2211D0F119DE16B0004E48B1 /* Sprite Kite Demo Soccerball */;
+			targetProxy = 2211D11F19DE16B1004E48B1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2211D10019DE16B1004E48B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2211D10119DE16B1004E48B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2211D10919DE16B1004E48B1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2211D10A19DE16B1004E48B1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2211D12419DE16B1004E48B1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2211D12519DE16B1004E48B1 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2211D12919DE16B1004E48B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2211D12A19DE16B1004E48B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2211D12C19DE16B1004E48B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sprite Kite Demo Soccerball/Sprite Kite Demo Soccerball-Prefix.pch";
+				INFOPLIST_FILE = "Sprite Kite Demo Soccerball/Sprite Kite Demo Soccerball-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		2211D12D19DE16B1004E48B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sprite Kite Demo Soccerball/Sprite Kite Demo Soccerball-Prefix.pch";
+				INFOPLIST_FILE = "Sprite Kite Demo Soccerball/Sprite Kite Demo Soccerball-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		2211D12F19DE16B1004E48B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sprite Kite Demo Soccerball.app/Sprite Kite Demo Soccerball";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sprite Kite Demo Soccerball/Sprite Kite Demo Soccerball-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Sprite Kite Demo SoccerballTests/Sprite Kite Demo SoccerballTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		2211D13019DE16B1004E48B1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sprite Kite Demo Soccerball.app/Sprite Kite Demo Soccerball";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sprite Kite Demo Soccerball/Sprite Kite Demo Soccerball-Prefix.pch";
+				INFOPLIST_FILE = "Sprite Kite Demo SoccerballTests/Sprite Kite Demo SoccerballTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2211D0ED19DE16B0004E48B1 /* Build configuration list for PBXProject "Sprite Kite Demo Soccerball" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2211D12919DE16B1004E48B1 /* Debug */,
+				2211D12A19DE16B1004E48B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2211D12B19DE16B1004E48B1 /* Build configuration list for PBXNativeTarget "Sprite Kite Demo Soccerball" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2211D12C19DE16B1004E48B1 /* Debug */,
+				2211D12D19DE16B1004E48B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2211D12E19DE16B1004E48B1 /* Build configuration list for PBXNativeTarget "Sprite Kite Demo SoccerballTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2211D12F19DE16B1004E48B1 /* Debug */,
+				2211D13019DE16B1004E48B1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2211D0EA19DE16B0004E48B1 /* Project object */;
+}
