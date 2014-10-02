@@ -12,6 +12,7 @@
 {
     SKNode *_mainLayer;
     SKSpriteNode *_cannon;
+    BOOL _didShoot;
 }
 
 static const CGFloat SHOOT_SPEED = 1000.0f;
@@ -29,6 +30,8 @@ static inline CGVector radiansToVector(CGFloat radians)
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        
+        _didShoot = NO;
         
         // Turn off gravity.
         self.physicsWorld.gravity = CGVectorMake(0, 0);
@@ -60,6 +63,7 @@ static inline CGVector radiansToVector(CGFloat radians)
 -(void)shoot
 {
     SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:@"ball"];
+    ball.name = @"ball";
     CGVector rotationVector = radiansToVector(_cannon.zRotation);
     float width = _cannon.size.width/2;
     ball.position = CGPointMake(_cannon.position.x + (width*rotationVector.dx),
@@ -74,8 +78,22 @@ static inline CGVector radiansToVector(CGFloat radians)
     /* Called when a touch begins */
     
     for (UITouch *touch in touches) {
-        [self shoot];
+        _didShoot = YES;
     }
+}
+
+- (void)didSimulatePhysics
+{
+    if (_didShoot) {
+        [self shoot];
+        _didShoot = NO;
+    }
+    
+    [_mainLayer enumerateChildNodesWithName:@"ball" usingBlock:^(SKNode *node, BOOL *stop) {
+        if (NO == CGRectContainsPoint(self.frame, node.position)) {
+            [node removeFromParent];
+        }
+    }];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
