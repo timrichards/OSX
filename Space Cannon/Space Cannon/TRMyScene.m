@@ -12,6 +12,10 @@
 {
     SKNode *_mainLayer;
     SKSpriteNode *_cannon;
+    
+    /* Scene Update Processing:
+    Since -touchesBegan is evaluated at "SKView renders the scene", too late to render the ball, move the
+    evaluation to the next scene so the ball appears to emit closer to the end of the cannon. */
     BOOL _didShoot;
 }
 
