@@ -16,5 +16,8 @@
 @property (nonatomic, strong) NSString *name;
 
 -(void)bark;
+-(void)bark:(int)numberOfTimes;
+-(NSString*)bark:(int)numberOfTimes loudly:(BOOL)isLoud;
+-(void)transmogrify;
 
 @end

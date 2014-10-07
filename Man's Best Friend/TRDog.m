@@ -15,4 +15,21 @@
     NSLog(@"Mwraw!");
 }
 
+-(void)bark:(int)numberOfTimes
+{
+    NSLog([(YES ? @"woof" : @"mew") stringByAppendingString:@" %i!"], numberOfTimes);
+}
+
+-(NSString*)bark:(int)numberOfTimes loudly:(BOOL)isLoud
+{
+    NSLog([(isLoud ? @"WOOF" : @"mew") stringByAppendingString:@" %i!"], numberOfTimes);
+    
+    return @"barked!!";
+}
+
+-(void)transmogrify
+{
+    self.breed = @"Werebat";
+}
+
 @end
