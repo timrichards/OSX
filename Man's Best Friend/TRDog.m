@@ -10,6 +10,9 @@
 
 @implementation TRDog
 
-
+-(void)bark
+{
+    NSLog(@"Mwraw!");
+}
 
 @end

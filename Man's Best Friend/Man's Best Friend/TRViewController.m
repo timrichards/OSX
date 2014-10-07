@@ -20,12 +20,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    TRDog *myDog = [[TRDog alloc] init];
+    TRDog *myDog = nil;//[[TRDog alloc] init];
     myDog.name = @"Spud";
     myDog.breed = @"Cat";
     myDog.age = 13;
-    myDog = NULL;
-    NSLog(@"%@", myDog.name);
+  //  myDog = nil;
+    NSLog(@"%@", myDog.name);       // reference to a null object does not crash
+    NSLog(@"barking");
+    [myDog bark];                   // method call on null object does not invoke
+    NSLog(@"barked");
 }
 
 - (void)didReceiveMemoryWarning
