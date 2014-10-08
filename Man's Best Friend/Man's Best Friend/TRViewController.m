@@ -28,8 +28,14 @@
     [self.myDogs addObject:theDog];
 }
 
--(void) displayDog
+-(int) displayedDog
 {
+    return _thisDog;
+}
+
+-(void) displayDog:(int) which
+{
+    _thisDog = which;
     TRDog *theDog = [self.myDogs objectAtIndex:_thisDog];
     self.myImageView.image = theDog.image;
     self.breedLabel.text = theDog.breed;
@@ -61,9 +67,7 @@
     [self addDog:@"Wishbone" Breed:@"Jack Russell Terrier" Image:@"JRT.jpg"];
     [self addDog:@"Lassie" Breed:@"Collie" Image:@"BorderCollie.jpg"];
     [self addDog:@"Angel" Breed:@"Greyhound" Image:@"ItalianGreyhound.jpg"];
-    
-    _thisDog = 0;
-    [self displayDog];
+    [self displayDog:0];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,11 +81,10 @@
     int randomIndex = 0;
     
     do {
-        randomIndex = arc4random() %  numberOfDogs;
-    } while(randomIndex == _thisDog);
+        randomIndex = arc4random() % numberOfDogs;
+    } while (randomIndex == [self displayedDog]);
     
-    _thisDog = randomIndex;
-    [self displayDog];
+    [self displayDog:randomIndex];
     sender.title = @"And Another";
 }
 @end
