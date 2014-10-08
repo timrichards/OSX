@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface TRViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIImageView *myImageView;
+@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *breedLabel;
+@property (nonatomic, strong) NSMutableArray *myDogs;
+
+- (IBAction)newDogButtonItemPressed:(UIBarButtonItem *)sender;
 
 @end
