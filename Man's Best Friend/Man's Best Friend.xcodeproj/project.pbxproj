@@ -27,6 +27,7 @@
 		22F7C90D19E4DC2C00190D2E /* ItalianGreyhound.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22F7C90819E4DC2C00190D2E /* ItalianGreyhound.jpg */; };
 		22F7C90E19E4DC2C00190D2E /* JRT.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22F7C90919E4DC2C00190D2E /* JRT.jpg */; };
 		22F7C90F19E4DC2C00190D2E /* St.Bernard.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 22F7C90A19E4DC2C00190D2E /* St.Bernard.JPG */; };
+		22FFB6FD19E59C7700EBA5B3 /* TRPuppy.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FFB6FC19E59C7700EBA5B3 /* TRPuppy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		22F7C90819E4DC2C00190D2E /* ItalianGreyhound.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ItalianGreyhound.jpg; sourceTree = "<group>"; };
 		22F7C90919E4DC2C00190D2E /* JRT.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = JRT.jpg; sourceTree = "<group>"; };
 		22F7C90A19E4DC2C00190D2E /* St.Bernard.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = St.Bernard.JPG; sourceTree = "<group>"; };
+		22FFB6FB19E59C7700EBA5B3 /* TRPuppy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRPuppy.h; sourceTree = "<group>"; };
+		22FFB6FC19E59C7700EBA5B3 /* TRPuppy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRPuppy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				22F7C90419E496E600190D2E /* TRDog.m */,
 				22F7C8E319E495D600190D2E /* TRViewController.h */,
 				22F7C8E419E495D600190D2E /* TRViewController.m */,
+				22FFB6FB19E59C7700EBA5B3 /* TRPuppy.h */,
+				22FFB6FC19E59C7700EBA5B3 /* TRPuppy.m */,
 				22F7C8E619E495D600190D2E /* Images.xcassets */,
 				22F7C8D519E495D600190D2E /* Supporting Files */,
 			);
@@ -276,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F7C8DF19E495D600190D2E /* TRAppDelegate.m in Sources */,
+				22FFB6FD19E59C7700EBA5B3 /* TRPuppy.m in Sources */,
 				22F7C8DB19E495D600190D2E /* main.m in Sources */,
 				22F7C90519E496E600190D2E /* TRDog.m in Sources */,
 				22F7C8E519E495D600190D2E /* TRViewController.m in Sources */,
@@ -483,6 +489,7 @@
 				22F7C8FF19E495D700190D2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22F7C90019E495D700190D2E /* Build configuration list for PBXNativeTarget "Man's Best FriendTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +498,7 @@
 				22F7C90219E495D700190D2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

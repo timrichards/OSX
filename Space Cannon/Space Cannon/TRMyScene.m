@@ -60,7 +60,18 @@ static inline CGVector radiansToVector(CGFloat radians)
         SKAction *rotateCannon = [SKAction sequence:@[[SKAction rotateByAngle:M_PI duration:2],
                                                      [SKAction rotateByAngle:-M_PI duration:2]]];
         [_cannon runAction:[SKAction repeatActionForever:rotateCannon]];
+        
+        // Add edges.
+        SKNode *leftEdge = [[SKNode alloc] init];
+        leftEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0, self.size.height)];
+        leftEdge.position = CGPointZero;
+        [self addChild:leftEdge];
+        
+        SKNode *rightEdge = [leftEdge copy];
+        rightEdge.position = CGPointMake(self.size.width, 0);   // dot notation; property; is a e.g. _size var wrapped in a message call
+        [self addChild:rightEdge];
     }
+
     return self;
 }
 
@@ -76,6 +87,9 @@ static inline CGVector radiansToVector(CGFloat radians)
     
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:6];
     ball.physicsBody.velocity = CGVectorMake(rotationVector.dx * SHOOT_SPEED, rotationVector.dy * SHOOT_SPEED);
+    ball.physicsBody.restitution = 1;
+    ball.physicsBody.linearDamping = 0;
+    ball.physicsBody.friction = 0;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {

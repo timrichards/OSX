@@ -38,6 +38,16 @@
         [_ball runAction:[SKAction moveToX:500 duration:2]];
         
         _count = 0;
+        
+        // Add edges.
+        SKNode *leftEdge = [[SKNode alloc] init];
+        leftEdge.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:CGPointZero toPoint:CGPointMake(0, self.size.height)];
+        leftEdge.position = CGPointZero;
+        [self addChild:leftEdge];
+        
+        SKNode *rightEdge = [leftEdge copy];
+        rightEdge.position = CGPointMake(self.size.width, 0);   // dot notation; property; is a e.g. _size var wrapped in a message call
+        [self addChild:rightEdge];
     }
     return self;
 }
@@ -52,6 +62,9 @@
 
         ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.size.width/2];
         ball.position = location;
+        ball.physicsBody.restitution = 1;
+        ball.physicsBody.linearDamping = 0;
+        ball.physicsBody.friction = 0;
         [self addChild:ball];
     }
 }

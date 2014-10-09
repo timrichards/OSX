@@ -37,9 +37,14 @@
 {
     _thisDog = which;
     TRDog *theDog = [self.myDogs objectAtIndex:_thisDog];
-    self.myImageView.image = theDog.image;
-    self.breedLabel.text = theDog.breed;
-    self.nameLabel.text = theDog.name;
+    
+    [UIView transitionWithView:self.view duration:2.5 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.myImageView.image = theDog.image;
+        self.breedLabel.text = theDog.breed;
+        self.nameLabel.text = theDog.name;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)viewDidLoad
