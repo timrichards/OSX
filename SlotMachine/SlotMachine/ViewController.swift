@@ -15,6 +15,9 @@ class ViewController: UIViewController {
     let creditsLabel = UILabel()
     let betLabel = UILabel()
     let winnerPaidLabel = UILabel()
+    let creditsTitleLabel = UILabel()
+    let betTitleLabel = UILabel()
+    let winnerPaidTitleLabel = UILabel()
     
     private func createViews()
     {
@@ -102,8 +105,25 @@ class ViewController: UIViewController {
         }
         
         SetLabel_A(creditsLabel)
-        SetLabel_A(betLabel, text:"0000", pos:3)                            // must have argument specifier
+        SetLabel_A(betLabel, text:"0000", pos:3)                            // must have opt argument specifier
         SetLabel_A(winnerPaidLabel, pos:5)
+        
+    // Third view title labels
+        func SetTitleLabel(label:UILabel, text:NSString, pos:CGFloat = 1)
+        {
+            label.font = UIFont(name: "AmericanTypeWriter", size: 14)
+            label.textColor = UIColor.blackColor()
+            label.center.y = thirdView.frame.height/3 * 2
+            thirdView.addSubview(label)
+            
+            label.text = text
+            label.sizeToFit()
+            label.center.x = thirdView.frame.width/6 * pos
+        }
+        
+        SetTitleLabel(self.creditsTitleLabel, "Credits")
+        SetTitleLabel(betTitleLabel, "Bet", pos:3)
+        SetTitleLabel(winnerPaidTitleLabel, "Winner Paid", pos:5)
     }
     
     override func viewDidLoad() {
