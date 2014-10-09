@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]         // let makes the array immutable
+    let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]           // let makes the array immutable
+    let titleLabel = UILabel()                                              // ...but not properties of object: mutable: A
     
     private func createViews()
     {
@@ -35,6 +36,14 @@ class ViewController: UIViewController {
             view.backgroundColor = colors[i]
             self.view.addSubview(view)
         }
+        
+        // First view.
+        self.titleLabel.text = "Super Slots"                                // A        mutable let object
+        self.titleLabel.textColor = UIColor.yellowColor()
+        self.titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
+        self.titleLabel.sizeToFit()
+        self.titleLabel.center = views[0].center
+        views[0].addSubview(self.titleLabel)
     }
     
     override func viewDidLoad() {
