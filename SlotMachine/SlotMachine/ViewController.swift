@@ -12,11 +12,15 @@ class ViewController: UIViewController {
 
     let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]           // let makes the array immutable
     let titleLabel = UILabel()                                              // ...but not properties of object: mutable: A
+    let creditsLabel = UILabel()
+    let betLabel = UILabel()
+    let winnerPaidLabel = UILabel()
     
     private func createViews()
     {
         1 + 1                                                               // no lvalue builds just fine
 
+        let kSumHeights:CGFloat = 6
         let heights:[CGFloat] = [1, 3, 1, 1]
         let colors:[UIColor] = [UIColor.redColor(), UIColor.blackColor(), UIColor.lightGrayColor(), UIColor.blackColor()]
 
@@ -28,7 +32,7 @@ class ViewController: UIViewController {
             view.frame.origin.x = self.view.bounds.origin.x + kMarginForView
             view.frame.size.width = self.view.bounds.width - (2*kMarginForView)
             
-            let height = self.view.bounds.height/6 * heights[i]
+            let height = self.view.bounds.height/kSumHeights * heights[i]
             view.frame.size.height = height
             
             //Vertical positioning is offset
@@ -39,15 +43,15 @@ class ViewController: UIViewController {
             self.view.addSubview(view)
         }
         
-        // First view: Title
+    // First view: Title
         self.titleLabel.text = "Super Slots"                                // A        mutable let object
-        self.titleLabel.textColor = UIColor.yellowColor()
-        self.titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
-        self.titleLabel.sizeToFit()
-        self.titleLabel.center = views[0].center
-        views[0].addSubview(self.titleLabel)
+        titleLabel.textColor = UIColor.yellowColor()
+        titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
+        titleLabel.sizeToFit()
+        titleLabel.center = views[0].center
+        views[0].addSubview(titleLabel)
         
-        // Second view: largest: Slots
+    // Second view: largest: Slots
         let kNumCols = 3
         let kNumSlots = 3
         let kColMargin:CGFloat = 4
@@ -71,6 +75,35 @@ class ViewController: UIViewController {
                 secondView.addSubview(slotImageView)
             }
         }
+        
+    // Third view: Score
+        let thirdView = views[2]
+        
+        func SetLabel(label:UILabel)
+        {
+            label.font = UIFont(name: "Menlo-Bold", size: 16)
+            label.textAlignment = NSTextAlignment.Center
+            label.textColor = UIColor.redColor()
+            label.backgroundColor = UIColor.darkGrayColor()
+            label.center.y = thirdView.frame.height/3
+            thirdView.addSubview(label)                                     //  closure
+        }
+        
+        SetLabel(self.creditsLabel)
+        SetLabel(betLabel)
+        SetLabel(winnerPaidLabel)
+        
+        // second func just to demo/test
+        func SetLabel_A(label:UILabel, text:NSString = "000000", pos:CGFloat = 1)  // opt param; cannot overload embed func
+        {
+            label.text = text
+            label.sizeToFit()
+            label.center.x = thirdView.frame.width/6 * pos
+        }
+        
+        SetLabel_A(creditsLabel)
+        SetLabel_A(betLabel, text:"0000", pos:3)                            // must have argument specifier
+        SetLabel_A(winnerPaidLabel, pos:5)
     }
     
     override func viewDidLoad() {
