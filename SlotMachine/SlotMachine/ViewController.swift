@@ -19,6 +19,11 @@ class ViewController: UIViewController {
     let betTitleLabel = UILabel()
     let winnerPaidTitleLabel = UILabel()
     
+    let resetButton = UIButton()
+    let betOneButton = UIButton()
+    let betMaxButton = UIButton()
+    let spinButton = UIButton()
+    
     private func createViews()
     {
         1 + 1                                                               // no lvalue builds just fine
@@ -124,6 +129,29 @@ class ViewController: UIViewController {
         SetTitleLabel(self.creditsTitleLabel, "Credits")
         SetTitleLabel(betTitleLabel, "Bet", pos:3)
         SetTitleLabel(winnerPaidTitleLabel, "Winner Paid", pos:5)
+        
+    // Fourth view: Butttons                                                                 opt args must be last
+        func SetButton(button:UIButton, text:NSString, backColor:UIColor, callback:Selector, pos:CGFloat = 1)
+        {
+            let fourthView = self.views[3]
+            
+            button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+            button.titleLabel?.font = UIFont(name: "Superclarendon-Bold", size: 12)
+            button.center.y = fourthView.frame.height/2
+            fourthView.addSubview(button)
+ 
+            button.setTitle(text, forState: UIControlState.Normal)
+            button.sizeToFit()
+            button.backgroundColor = backColor
+            button.center.x = fourthView.frame.width/8 * pos
+            button.addTarget(self, action: callback, forControlEvents: UIControlEvents.TouchUpInside)
+        }
+        
+        // Build will succeed with functions undefined for given selectors
+        SetButton(self.resetButton, "Reset", UIColor.lightGrayColor(), "resetButtonPressed:")
+        SetButton(betOneButton, "Bet One", UIColor.greenColor(), "betOneButtonPressed:", pos:3)
+        SetButton(betMaxButton, "Bet Max", UIColor.redColor(), "betMaxButtonPressed:", pos:5)
+        SetButton(spinButton, "Spin", UIColor.greenColor(), "spinButtonPressed:", pos:7)
     }
     
     override func viewDidLoad() {
@@ -137,7 +165,25 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func resetButtonPressed(button:UIButton)
+    {
+        println(button)
+    }
+    
+    func betOneButtonPressed(button:UIButton)
+    {
+        println(button)
+    }
+    
+    func betMaxButtonPressed(button:UIButton)
+    {
+        println(button)
+    }
+    
+    func spinButtonPressed(button:UIButton)
+    {
+        println(button)
+    }
 }
 
