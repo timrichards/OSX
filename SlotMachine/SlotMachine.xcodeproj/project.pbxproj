@@ -13,6 +13,7 @@
 		224CF0D119E60D5400500878 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 224CF0D019E60D5400500878 /* Images.xcassets */; };
 		224CF0D419E60D5400500878 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 224CF0D219E60D5400500878 /* LaunchScreen.xib */; };
 		224CF0E019E60D5400500878 /* SlotMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224CF0DF19E60D5400500878 /* SlotMachineTests.swift */; };
+		22F1B3D819E75B90006C11ED /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F1B3D719E75B90006C11ED /* Factory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		224CF0D919E60D5400500878 /* SlotMachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlotMachineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		224CF0DE19E60D5400500878 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		224CF0DF19E60D5400500878 /* SlotMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotMachineTests.swift; sourceTree = "<group>"; };
+		22F1B3D719E75B90006C11ED /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Factory.swift; path = ../Factory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		224CF0C619E60D5400500878 /* SlotMachine */ = {
 			isa = PBXGroup;
 			children = (
+				22F1B3D719E75B90006C11ED /* Factory.swift */,
 				224CF0C919E60D5400500878 /* AppDelegate.swift */,
 				224CF0CB19E60D5400500878 /* ViewController.swift */,
 				224CF0CD19E60D5400500878 /* Main.storyboard */,
@@ -214,6 +217,7 @@
 			files = (
 				224CF0CC19E60D5400500878 /* ViewController.swift in Sources */,
 				224CF0CA19E60D5400500878 /* AppDelegate.swift in Sources */,
+				22F1B3D819E75B90006C11ED /* Factory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +409,7 @@
 				224CF0E519E60D5400500878 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		224CF0E619E60D5400500878 /* Build configuration list for PBXNativeTarget "SlotMachineTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +418,7 @@
 				224CF0E819E60D5400500878 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

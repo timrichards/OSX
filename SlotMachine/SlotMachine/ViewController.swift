@@ -24,6 +24,9 @@ class ViewController: UIViewController {
     let betMaxButton = UIButton()
     let spinButton = UIButton()
     
+    var slots:[[Slot]] = []
+    var slotImageViews:[[UIImageView]] = []
+    
     private func createViews()
     {
         1 + 1                                                               // no lvalue builds just fine
@@ -60,14 +63,14 @@ class ViewController: UIViewController {
         views[0].addSubview(titleLabel)
         
     // Second view: largest: Slots
-        let kNumCols = 3
-        let kNumSlots = 3
         let kColMargin:CGFloat = 4
         let kSlotMargin:CGFloat = 2
         let secondView = views[1]
         
-        for var ixCol = 0; ixCol < kNumCols; ++ixCol
+        for var ixCol = 0; ixCol < kNumCols; ++ixCol          // kNumCols; kNumSlots are in Factory.swift
         {
+            slotImageViews.append([])
+            
             for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
             {
                 var slotImageView = UIImageView()
@@ -81,6 +84,8 @@ class ViewController: UIViewController {
                 slotImageView.frame.origin.x += kColMargin/2
                 slotImageView.frame.origin.y += kSlotMargin/2
                 secondView.addSubview(slotImageView)
+                
+                slotImageViews[slotImageViews.count-1].append(slotImageView)
             }
         }
         
@@ -130,7 +135,7 @@ class ViewController: UIViewController {
         SetTitleLabel(betTitleLabel, "Bet", pos:3)
         SetTitleLabel(winnerPaidTitleLabel, "Winner Paid", pos:5)
         
-    // Fourth view: Butttons                                                                 opt args must be last
+    // Fourth view: Butttons                                                                 opt args must be last if op'd
         func SetButton(button:UIButton, text:NSString, backColor:UIColor, callback:Selector, pos:CGFloat = 1)
         {
             let fourthView = self.views[3]
@@ -159,6 +164,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         createViews()
+        Factory.createSlots()
+    //    Factory().createSlot(slotArray)
     }
 
     override func didReceiveMemoryWarning() {
@@ -183,7 +190,15 @@ class ViewController: UIViewController {
     
     func spinButtonPressed(button:UIButton)
     {
-        println(button)
+        slots = Factory.createSlots()
+        
+        for var ixCol = 0; ixCol < kNumCols; ++ixCol          // kNumCols; kNumSlots are in Factory.swift
+        {
+            for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
+            {
+                slotImageViews[ixCol][ixSlot].image = slots[ixCol][ixSlot].image
+            }
+        }
     }
 }
 
