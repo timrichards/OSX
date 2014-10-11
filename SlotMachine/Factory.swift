@@ -9,8 +9,8 @@
 import UIKit
 import Foundation
 
-let kNumCols = 3
-let kNumSlots = 3
+let kNumCols = 4
+let kNumSlots = 6
 
 struct Slot
 {

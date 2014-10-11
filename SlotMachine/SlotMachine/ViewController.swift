@@ -212,13 +212,11 @@ class ViewController: UIViewController {
     {
         if (credits <= 0)
         {
-            if (currentBet > 0)
+            if (currentBet <= 0)
             {
-                return false
+                self.alert(header: "No more credits!", message: "Reset game.")
+                resetButton.sendAction("resetButtonPressed:", to: nil, forEvent: nil)
             }
-            
-            self.alert(header: "No more credits!", message: "Reset game.")
-            resetButton.sendAction("resetButtonPressed:", to: nil, forEvent: nil)
         }
         else if (currentBet >= 5)
         {
