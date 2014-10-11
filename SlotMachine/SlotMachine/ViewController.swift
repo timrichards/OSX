@@ -27,6 +27,11 @@ class ViewController: UIViewController {
     var slots:[[Slot]] = []
     var slotImageViews:[[UIImageView]] = []
     
+    // Score
+    var credits = 0
+    var currentBet = 0
+    var winnings = 0
+    
     private func createViews()
     {
         1 + 1                                                               // no lvalue builds just fine
@@ -135,7 +140,7 @@ class ViewController: UIViewController {
         SetTitleLabel(betTitleLabel, "Bet", pos:3)
         SetTitleLabel(winnerPaidTitleLabel, "Winner Paid", pos:5)
         
-    // Fourth view: Butttons                                                                 opt args must be last if op'd
+    // Fourth view: Buttons
         func SetButton(button:UIButton, text:NSString, backColor:UIColor, callback:Selector, pos:CGFloat = 1)
         {
             let fourthView = self.views[3]
@@ -159,15 +164,87 @@ class ViewController: UIViewController {
         SetButton(spinButton, "Spin", UIColor.greenColor(), "spinButtonPressed:", pos:7)
     }
     
+    func updateScore()
+    {
+        creditsLabel.text = "$\(credits)"
+        betLabel.text = "$\(currentBet)"
+        winnerPaidLabel.text = "$\(winnings)"
+    }
+    
+    var alerting = false
+    var alerts:[(String, String)] = []
+    
+    func alert(header: String = "Warning", message: String)        // Example of optional parameter not being last
+    {
+        if (alerting)
+        {
+            alerts.append((header, message))
+        }
+        else
+        {
+            alerting = true
+            
+            let alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:
+            {
+                (alert: UIAlertAction!) in self.nextAlert()
+            }))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func nextAlert()
+    {
+        self.alerting = false       // will toggle very quickly when popping from stack
+        
+        if (self.alerts.count > 0)
+        {
+            var msg = self.alerts[0]
+            
+            self.alerts.removeAtIndex(0)
+            self.alert(header:msg.0, message:msg.1)
+        }
+    }
+    
+    func testCredits() -> Bool
+    {
+        if (credits <= 0)
+        {
+            if (currentBet > 0)
+            {
+                return false
+            }
+            
+            self.alert(header: "No more credits!", message: "Reset game.")
+            resetButton.sendAction("resetButtonPressed:", to: nil, forEvent: nil)
+        }
+        else if (currentBet >= 5)
+        {
+            self.alert(message: "You can only bet 5 credits at a time.")
+        }
+        else
+        {
+            return true
+        }
+        
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         createViews()
-        Factory.createSlots()
-    //    Factory().createSlot(slotArray)
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
 
+        resetButton.sendAction("resetButtonPressed:", to: nil, forEvent: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -175,17 +252,41 @@ class ViewController: UIViewController {
     
     func resetButtonPressed(button:UIButton)
     {
-        println(button)
+        credits = 5
+        winnings = 0
+        currentBet = 1
+        updateScore()
+        spinButton.sendAction("spinButtonPressed:", to: nil, forEvent: nil)
     }
     
     func betOneButtonPressed(button:UIButton)
     {
-        println(button)
+        
+        if (testCredits())
+        {
+            --credits
+            ++currentBet
+            updateScore()
+        }
     }
     
     func betMaxButtonPressed(button:UIButton)
     {
-        println(button)
+        if (testCredits())
+        {
+            if (credits < 5)
+            {
+                self.alert(header: "Not enough credits!", message: "Bet less.")
+            }
+            else
+            {
+                let creditsToBetMax = 5 - currentBet
+                
+                credits -= creditsToBetMax
+                currentBet += creditsToBetMax
+                updateScore()
+            }
+        }
     }
     
     func spinButtonPressed(button:UIButton)
@@ -198,6 +299,50 @@ class ViewController: UIViewController {
             {
                 slotImageViews[ixCol][ixSlot].image = slots[ixCol][ixSlot].image
             }
+        }
+        
+        if (currentBet > 0)
+        {
+            var wins = Factory.findWins(slots)
+            winnings = 0
+            
+            func computeAndShow(win:Int, mult:Int, allWin:Int, won1s:String, wonAllS:String) -> Int
+            {
+                if (win > 0)
+                {
+                    let winMult = win * mult
+
+                    alert(header: won1s, message: "\(win)x.  Bet $\(self.currentBet)  Won $\(winMult * self.currentBet)")
+                    winnings += winMult
+                    
+                    if (win == kNumSlots)
+                    {
+                        alert(header: wonAllS, message: "$\(allWin) per bet.  Bet $\(self.currentBet)  Won $\(allWin * self.currentBet)")
+                        winnings += allWin
+                        
+                        return 2
+                    }
+                    
+                    return 1
+                }
+                
+                return 0
+            }
+            
+            var numTypesOfWin = computeAndShow(wins.0, 1, 25, "Flush!", "Royal Flush!")
+            numTypesOfWin += computeAndShow(wins.1, 1, 1000, "Straight!", "Epic Straight!")
+            numTypesOfWin += computeAndShow(wins.2, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
+            
+            winnings *= currentBet
+            
+            if (numTypesOfWin > 1)
+            {
+                alert(header: "Total Wins!", message: "+ $\(winnings)")
+            }
+            
+            credits += winnings
+            currentBet = 0
+            updateScore()
         }
     }
 }

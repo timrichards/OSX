@@ -65,5 +65,69 @@ class Factory
         
         return Slot(value: randomCard, image: UIImage(named:cardNames[randomCard]), isRed: redness[randomCard])
     }
+    
+    class func findWins(slots:[[Slot]]) -> (Int, Int, Int)
+    {
+        var nFlushCount = 0
+        var nXinArowCount = 0
+        var nXofAkindCount = 0
+        
+        for var nSlot = 0; nSlot < kNumSlots; ++nSlot
+        {
+            var isRed = slots[0][nSlot].isRed
+            var isFlush = true
+            
+            if (isRed != slots[1][nSlot].isRed)
+            {
+                isFlush = false
+            }
+            
+            var trajXinARow = slots[1][nSlot].value - slots[0][nSlot].value
+            var isXinArow = false
+            
+            if (abs(trajXinARow) == 1)
+            {
+                isXinArow = true
+            }
+            
+            var nXofAkind = slots[0][nSlot].value
+            var isXofAkind = true
+            
+            for var nCol = 1; nCol < kNumCols; ++nCol
+            {
+                if (isFlush && (isRed != slots[nCol][nSlot].isRed))
+                {
+                    isFlush = false
+                }
+                
+                if ((nCol > 1) && isXinArow && (trajXinARow != slots[nCol][nSlot].value - slots[nCol-1][nSlot].value))
+                {
+                    isXinArow = false
+                }
+                
+                if (isXofAkind && (nXofAkind != slots[nCol][nSlot].value))
+                {
+                    isXofAkind = false
+                }
+            }
+            
+            if (isFlush)
+            {
+                ++nFlushCount
+            }
+            
+            if (isXinArow)
+            {
+                ++nXinArowCount
+            }
+            
+            if (isXofAkind)
+            {
+                ++nXofAkindCount
+            }
+        }
+        
+        return (nFlushCount, nXinArowCount, nXofAkindCount)
+    }
 }
 
