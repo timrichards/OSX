@@ -32,6 +32,10 @@ class ViewController: UIViewController {
     var currentBet = 0
     var winnings = 0
     
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//    }
+    
     private func createViews()
     {
         1 + 1                                                               // no lvalue builds just fine
@@ -102,7 +106,7 @@ class ViewController: UIViewController {
             label.font = UIFont(name: "Menlo-Bold", size: 16)
             label.textAlignment = NSTextAlignment.Center
             label.textColor = UIColor.redColor()
-            label.backgroundColor = UIColor.darkGrayColor()
+            label.backgroundColor = UIColor.blackColor()
             label.center.y = thirdView.frame.height/3
             thirdView.addSubview(label)                                     //  closure
         }
@@ -146,6 +150,7 @@ class ViewController: UIViewController {
             let fourthView = self.views[3]
             
             button.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+            button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Highlighted)
             button.titleLabel?.font = UIFont(name: "Superclarendon-Bold", size: 12)
             button.center.y = fourthView.frame.height/2
             fourthView.addSubview(button)
@@ -173,8 +178,9 @@ class ViewController: UIViewController {
     
     var alerting = false
     var alerts:[(String, String)] = []
+    var callback_A:(() -> Void)! = nil
     
-    func alert(header: String = "Warning", message: String)        // Example of optional parameter not being last
+    func alert(header: String = "Whoops!", message: String, callback:(() -> Void)! = nil)        // Optional parameter must be last or spec param
     {
         if (alerting)
         {
@@ -184,8 +190,13 @@ class ViewController: UIViewController {
         {
             alerting = true
             
-            let alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+            if (callback != nil)
+            {
+                callback_A = callback
+            }
             
+            let alert = UIAlertController(title: header, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler:
             {
                 (alert: UIAlertAction!) in self.nextAlert()
@@ -205,6 +216,15 @@ class ViewController: UIViewController {
             
             self.alerts.removeAtIndex(0)
             self.alert(header:msg.0, message:msg.1)
+        }
+        else
+        {
+            if (callback_A != nil)
+            {
+                var callback = callback_A
+                callback_A = nil
+                callback()
+            }
         }
     }
     
@@ -259,7 +279,6 @@ class ViewController: UIViewController {
     
     func betOneButtonPressed(button:UIButton)
     {
-        
         if (testCredits())
         {
             --credits
@@ -287,6 +306,40 @@ class ViewController: UIViewController {
         }
     }
     
+    var wins:Factory.WinsType = Factory.winsTypeInit()
+    
+    func animateCards()
+    {
+        func animate(view:UIImageView)
+        {
+            UIView.animateWithDuration(0.5, delay: 0,
+                options: UIViewAnimationOptions.CurveEaseInOut,
+                animations: { //() -> Void in     //   what; why optional
+                    view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+                }, completion: { finished in
+                    view.transform = CGAffineTransformMakeRotation(0)
+//                    UIView.animateWithDuration(0.5, delay: 0,
+//                        options: UIViewAnimationOptions.CurveEaseInOut,
+//                        animations: { () -> Void in
+//                            view.transform = CGAffineTransformMakeRotation(0)
+//                        }, completion: { finished in
+//                        }
+//                    )
+                }
+            )
+        }
+        
+//        animate(slotImageViews[0][0])
+
+        for var ixCol = 0; ixCol < kNumCols; ++ixCol
+        {
+            for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
+            {
+//                animate(slotImageViews[ixCol][ixSlot])
+            }
+        }
+    }
+    
     func spinButtonPressed(button:UIButton)
     {
         slots = Factory.createSlots()
@@ -301,7 +354,7 @@ class ViewController: UIViewController {
         
         if (currentBet > 0)
         {
-            var wins = Factory.findWins(slots)
+            wins = Factory.findWins(slots)
             winnings = 0
             
             func computeAndShow(win:Int, mult:Int, allWin:Int, won1s:String, wonAllS:String) -> Int
@@ -310,7 +363,7 @@ class ViewController: UIViewController {
                 {
                     let winMult = win * mult
 
-                    alert(header: won1s, message: "\(win)x.  Bet $\(self.currentBet)  Won $\(winMult * self.currentBet)")
+                    alert(header: won1s, message: "\(win)x.  Bet $\(self.currentBet)  Won $\(winMult * self.currentBet)", callback:animateCards)
                     winnings += winMult
                     
                     if (win == kNumSlots)
@@ -327,9 +380,9 @@ class ViewController: UIViewController {
                 return 0
             }
             
-            var numTypesOfWin = computeAndShow(wins.0, 1, 25, "Flush!", "Royal Flush!")
-            numTypesOfWin += computeAndShow(wins.1, 1, 1000, "Straight!", "Epic Straight!")
-            numTypesOfWin += computeAndShow(wins.2, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
+            var numTypesOfWin = computeAndShow(wins.0.count, 1, 25, "Flush!", "Royal Flush!")
+            numTypesOfWin += computeAndShow(wins.1.count, 1, 1000, "Straight!", "Epic Straight!")
+            numTypesOfWin += computeAndShow(wins.2.count, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
             
             winnings *= currentBet
             

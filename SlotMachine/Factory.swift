@@ -9,8 +9,8 @@
 import UIKit
 import Foundation
 
-let kNumCols = 4
-let kNumSlots = 6
+let kNumCols = 3
+let kNumSlots = 3
 
 struct Slot
 {
@@ -66,11 +66,14 @@ class Factory
         return Slot(value: randomCard, image: UIImage(named:cardNames[randomCard]), isRed: redness[randomCard])
     }
     
-    class func findWins(slots:[[Slot]]) -> (Int, Int, Int)
+    typealias WinsType = ([Int], [Int], [Int])
+    class func winsTypeInit() -> WinsType { return ([0], [0], [0]) }
+
+    class func findWins(slots:[[Slot]]) -> WinsType
     {
-        var nFlushCount = 0
-        var nXinArowCount = 0
-        var nXofAkindCount = 0
+        var flushes:[Int] = []
+        var xsInArow:[Int] = []
+        var xsOfAkind:[Int] = []
         
         for var nSlot = 0; nSlot < kNumSlots; ++nSlot
         {
@@ -113,21 +116,21 @@ class Factory
             
             if (isFlush)
             {
-                ++nFlushCount
+                flushes.append(nSlot)
             }
             
             if (isXinArow)
             {
-                ++nXinArowCount
+                xsInArow.append(nSlot)
             }
             
             if (isXofAkind)
             {
-                ++nXofAkindCount
+                xsOfAkind.append(nSlot)
             }
         }
         
-        return (nFlushCount, nXinArowCount, nXofAkindCount)
+        return (flushes, xsInArow, xsOfAkind)
     }
 }
 
