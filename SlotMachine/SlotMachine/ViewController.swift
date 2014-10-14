@@ -306,13 +306,14 @@ class ViewController: UIViewController {
         }
     }
     
-    var wins:Factory.WinsType = Factory.winsTypeInit()
+    var wins = Factory.WinsStruct()
     
     func animateCards()
     {
-        func animate(view:UIImageView)
+        func animate(view:UIImageView, delay:NSTimeInterval = 0)
         {
-            UIView.animateWithDuration(0.5, delay: 0,
+            println(delay)
+            UIView.animateWithDuration(0.5, delay:delay,
                 options: UIViewAnimationOptions.CurveEaseInOut,
                 animations: { //() -> Void in     //   what; why optional
                     view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
@@ -329,13 +330,16 @@ class ViewController: UIViewController {
             )
         }
         
-//        animate(slotImageViews[0][0])
-
-        for var ixCol = 0; ixCol < kNumCols; ++ixCol
+        if (wins.any.count > 0)
         {
-            for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
+            for var deixSlot = 0; deixSlot < wins.any.count; ++deixSlot
             {
-//                animate(slotImageViews[ixCol][ixSlot])
+                var ixSlot = wins.any[deixSlot]
+                
+                for var ixCol = 0; ixCol < kNumCols; ++ixCol
+                {
+                    animate(slotImageViews[ixCol][ixSlot], delay: NSTimeInterval(Float(ixCol) * 0.2))
+                }
             }
         }
     }
@@ -380,9 +384,9 @@ class ViewController: UIViewController {
                 return 0
             }
             
-            var numTypesOfWin = computeAndShow(wins.0.count, 1, 25, "Flush!", "Royal Flush!")
-            numTypesOfWin += computeAndShow(wins.1.count, 1, 1000, "Straight!", "Epic Straight!")
-            numTypesOfWin += computeAndShow(wins.2.count, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
+            var numTypesOfWin = computeAndShow(wins.flushes.count, 1, 25, "Flush!", "Royal Flush!")
+            numTypesOfWin += computeAndShow(wins.xsInArow.count, 1, 1000, "Straight!", "Epic Straight!")
+            numTypesOfWin += computeAndShow(wins.xsOfAkind.count, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
             
             winnings *= currentBet
             

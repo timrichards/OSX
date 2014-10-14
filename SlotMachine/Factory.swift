@@ -66,14 +66,17 @@ class Factory
         return Slot(value: randomCard, image: UIImage(named:cardNames[randomCard]), isRed: redness[randomCard])
     }
     
-    typealias WinsType = ([Int], [Int], [Int])
-    class func winsTypeInit() -> WinsType { return ([0], [0], [0]) }
-
-    class func findWins(slots:[[Slot]]) -> WinsType
+    struct WinsStruct
     {
+        var any:[Int] = []
         var flushes:[Int] = []
         var xsInArow:[Int] = []
         var xsOfAkind:[Int] = []
+    }
+
+    class func findWins(slots:[[Slot]]) -> WinsStruct
+    {
+        var wins = WinsStruct()
         
         for var nSlot = 0; nSlot < kNumSlots; ++nSlot
         {
@@ -116,21 +119,26 @@ class Factory
             
             if (isFlush)
             {
-                flushes.append(nSlot)
+                wins.flushes.append(nSlot)
             }
             
             if (isXinArow)
             {
-                xsInArow.append(nSlot)
+                wins.xsInArow.append(nSlot)
             }
             
             if (isXofAkind)
             {
-                xsOfAkind.append(nSlot)
+                wins.xsOfAkind.append(nSlot)
+            }
+            
+            if (isFlush || isXinArow || isXofAkind)
+            {
+                wins.any.append(nSlot)
             }
         }
         
-        return (flushes, xsInArow, xsOfAkind)
+        return wins
     }
 }
 
