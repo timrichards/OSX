@@ -31,7 +31,10 @@ class ViewController: UIViewController {
     var credits = 0
     var currentBet = 0
     var winnings = 0
-    
+
+    let spinViews:[UIView] = [UIView(), UIView(), UIView()]
+    let winViews:[UIView] = [UIView(), UIView(), UIView()]
+
 //    required init(coder aDecoder: NSCoder) {
 //        super.init(coder: aDecoder)
 //    }
@@ -98,6 +101,21 @@ class ViewController: UIViewController {
             }
         }
         
+    // Second view win views to show    Flush!    + 1!      expanding outward
+        winViews[0].frame.origin.x = secondView.bounds.origin.x //+ secondView.bounds.size.width * CGFloat(ixCol)/CGFloat(kNumCols)
+        winViews[0].frame.origin.y = secondView.bounds.origin.y //+ secondView.bounds.size.height * CGFloat(ixSlot)/CGFloat(kNumSlots)
+        winViews[0].frame.size.width = secondView.bounds.width ///CGFloat(kNumCols) - kColMargin
+        winViews[0].frame.size.height = secondView.bounds.height/CGFloat(kNumSlots) - kSlotMargin
+        secondView.addSubview(winViews[0])
+        winViews[0].backgroundColor = UIColor(white: 1, alpha: 0)
+        var label = UILabel()
+        label.text = "Flush!"
+        label.textColor = UIColor.blackColor()
+        label.font = UIFont(name: "MarkerFelt-Wide", size: 40)
+        label.sizeToFit()
+        label.center = winViews[0].center       // This line must come after positioning any container view
+        winViews[0].addSubview(label)
+
     // Third view: Score
         let thirdView = views[2]
         
@@ -312,7 +330,6 @@ class ViewController: UIViewController {
     {
         func animate(view:UIImageView, delay:NSTimeInterval = 0)
         {
-            println(delay)
             UIView.animateWithDuration(0.5, delay:delay,
                 options: UIViewAnimationOptions.CurveEaseInOut,
                 animations: { //() -> Void in     //   what; why optional
