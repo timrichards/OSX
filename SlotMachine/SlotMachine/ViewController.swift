@@ -34,6 +34,7 @@ class ViewController: UIViewController {
 
     let spinViews:[UIView] = [UIView(), UIView(), UIView()]
     let winViews:[UIView] = [UIView(), UIView(), UIView()]
+    var winViewLabels:[UILabel] = []
 
 //    required init(coder aDecoder: NSCoder) {
 //        super.init(coder: aDecoder)
@@ -109,12 +110,11 @@ class ViewController: UIViewController {
         secondView.addSubview(winViews[0])
         winViews[0].backgroundColor = UIColor(white: 1, alpha: 0)
         var label = UILabel()
-        label.text = "Flush!"
-        label.textColor = UIColor.blackColor()
-        label.font = UIFont(name: "MarkerFelt-Wide", size: 40)
-        label.sizeToFit()
-        label.center = winViews[0].center       // This line must come after positioning any container view
+        label.textColor = UIColor.redColor()
+        label.font = UIFont(name: "MarkerFelt-Wide", size: 80)
+        self.winViews[0].transform = CGAffineTransformMakeScale(0, 0)
         winViews[0].addSubview(label)
+        winViewLabels.append(label)
 
     // Third view: Score
         let thirdView = views[2]
@@ -324,25 +324,42 @@ class ViewController: UIViewController {
         }
     }
     
+    func animateText(view:UIView, strings:[String], ixStr:Int = 0)
+    {
+        if (strings.count <= ixStr)
+        {
+            return;
+        }
+        
+        var label = self.winViewLabels[0]
+        label.text = strings[ixStr]
+        label.sizeToFit()
+        label.center = winViews[0].center
+        
+        UIView.animateWithDuration(1, delay:0,
+            options: UIViewAnimationOptions.CurveEaseInOut,
+            animations: {
+                self.winViews[0].transform = CGAffineTransformMakeScale(1, 1)
+            }, completion: { finished in
+                self.winViews[0].transform = CGAffineTransformMakeScale(0, 0)
+                self.animateText(view, strings: strings, ixStr:ixStr + 1)
+            }
+        )
+    }
+    
     var wins = Factory.WinsStruct()
     
     func animateCards()
     {
-        func animate(view:UIImageView, delay:NSTimeInterval = 0)
+        func animateCard(view:UIImageView, delay:NSTimeInterval = 0)
         {
             UIView.animateWithDuration(0.5, delay:delay,
                 options: UIViewAnimationOptions.CurveEaseInOut,
                 animations: { //() -> Void in     //   what; why optional
                     view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+                    self.winViews[0].transform = CGAffineTransformMakeScale(1, 1)
                 }, completion: { finished in
                     view.transform = CGAffineTransformMakeRotation(0)
-//                    UIView.animateWithDuration(0.5, delay: 0,
-//                        options: UIViewAnimationOptions.CurveEaseInOut,
-//                        animations: { () -> Void in
-//                            view.transform = CGAffineTransformMakeRotation(0)
-//                        }, completion: { finished in
-//                        }
-//                    )
                 }
             )
         }
@@ -355,8 +372,11 @@ class ViewController: UIViewController {
                 
                 for var ixCol = 0; ixCol < kNumCols; ++ixCol
                 {
-                    animate(slotImageViews[ixCol][ixSlot], delay: NSTimeInterval(Float(ixCol) * 0.2))
+                    animateCard(slotImageViews[ixCol][ixSlot], delay: NSTimeInterval(Float(ixCol) * 0.2))
                 }
+                
+                var strings = ["", "Flush!", "Bet 1", "+ 1"]
+                animateText(winViews[0], strings: strings)
             }
         }
     }
