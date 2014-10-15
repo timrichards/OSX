@@ -35,24 +35,24 @@ class ViewController: UIViewController {
         var label = UILabel()
         var outline = UILabel()
         
-        init(container:UIView, yOff:Int)
+        init(container:UIView, ixSlot:Int)
         {
             let labelSize:CGFloat = 80
             let fontName = "MarkerFelt-Wide"
             
+            label.text = "XXXXX"
             label.textColor = UIColor.yellowColor()
             label.font = UIFont(name: fontName, size: labelSize)
             outline.textColor = UIColor.blackColor()
             outline.font = UIFont(name: fontName, size: labelSize+10)
-            outline.backgroundColor = UIColor(red: 0.2, green: 1, blue: 0.2, alpha: 0.4)
+            outline.backgroundColor = UIColor(red: 0.2, green: 1, blue: 0.2, alpha: 0.3)
             view.addSubview(outline)                                        // Seems to set Z-order
             view.addSubview(label)
+            
             view.frame = container.bounds
             
-            let height = view.frame.size.height / CGFloat(kNumSlots)
-            view.frame.size.height = height
-            view.frame.origin.y += CGFloat(yOff) * height
-            
+            view.frame.size.height /= CGFloat(kNumSlots)
+            view.frame.origin.y = CGFloat(ixSlot) * view.frame.height / 2
             view.backgroundColor = UIColor(white: 0, alpha: 0)
             view.transform = CGAffineTransformMakeScale(0, 0)
             container.addSubview(view)
@@ -69,6 +69,26 @@ class ViewController: UIViewController {
             
             setText_A(label)
             setText_A(outline)
+        }
+
+        func animateText(strings:[String], ixStr:Int = 0)
+        {
+            if (strings.count <= ixStr)
+            {
+                return;
+            }
+            
+            setText(strings[ixStr])
+            
+            UIView.animateWithDuration(1, delay:0,
+                options: UIViewAnimationOptions.CurveEaseInOut,
+                animations: {
+                    self.view.transform = CGAffineTransformMakeScale(1, 1)
+                }, completion: { finished in
+                    self.view.transform = CGAffineTransformMakeScale(0, 0)
+                    self.animateText(strings, ixStr:ixStr + 1)
+                }
+            )
         }
     }
     
@@ -123,8 +143,8 @@ class ViewController: UIViewController {
             {
                 var slotImageView = UIImageView()
                 slotImageView.backgroundColor = UIColor.yellowColor()
-                slotImageView.frame.origin.x = secondView.bounds.origin.x + secondView.bounds.size.width * CGFloat(ixCol)/CGFloat(kNumCols)
-                slotImageView.frame.origin.y = secondView.bounds.origin.y + secondView.bounds.size.height * CGFloat(ixSlot)/CGFloat(kNumSlots)
+                slotImageView.frame.origin.x = secondView.bounds.origin.x + secondView.bounds.width * CGFloat(ixCol)/CGFloat(kNumCols)
+                slotImageView.frame.origin.y = secondView.bounds.origin.y + secondView.bounds.height * CGFloat(ixSlot)/CGFloat(kNumSlots)
                 slotImageView.frame.size.width = secondView.bounds.width/CGFloat(kNumCols) - kColMargin
                 slotImageView.frame.size.height = secondView.bounds.height/CGFloat(kNumSlots) - kSlotMargin
                 
@@ -140,7 +160,7 @@ class ViewController: UIViewController {
     // Second view win views to show    Flush!    + 1!      expanding outward
         for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
         {
-            winViews.append(WinViewStruct(container: secondView, yOff: ixSlot))
+            winViews.append(WinViewStruct(container: secondView, ixSlot: ixSlot))
         }
 
     // Third view: Score
@@ -344,27 +364,6 @@ class ViewController: UIViewController {
         }
     }
     
-    private func animateText(winview:WinViewStruct, strings:[String], ixStr:Int = 0)
-    {
-        if (strings.count <= ixStr)
-        {
-            return;
-        }
-        
-        winview.setText(strings[ixStr])
-        var view = winview.view
-        
-        UIView.animateWithDuration(1, delay:0,
-            options: UIViewAnimationOptions.CurveEaseInOut,
-            animations: {
-                view.transform = CGAffineTransformMakeScale(1, 1)
-            }, completion: { finished in
-                view.transform = CGAffineTransformMakeScale(0, 0)
-                self.animateText(winview, strings: strings, ixStr:ixStr + 1)
-            }
-        )
-    }
-    
     private var wins = Factory.WinsStruct()
     
     private func animateCards()
@@ -392,8 +391,7 @@ class ViewController: UIViewController {
                     animateCard(slotImageViews[ixCol][ixSlot], delay: NSTimeInterval(Float(ixCol) * 0.2))
                 }
                 
-                var strings = ["Flush!", "Bet 1", "+ 1"]
-                animateText(winViews[ixSlot], strings: strings)
+                winViews[ixSlot].animateText(["Flush!", "Bet 1", "+ 1"])
             }
         }
     }
