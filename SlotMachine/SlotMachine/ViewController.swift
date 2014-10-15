@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]           // let makes the array immutable
-    let creditsLabel = UILabel()
+    let creditsLabel = UILabel()                                            // ...but not properties of object: mutable: A
     let betLabel = UILabel()
     let winnerPaidLabel = UILabel()
     
@@ -27,8 +27,7 @@ class ViewController: UIViewController {
     var winnings = 0
 
     let spinViews:[UIView] = [UIView(), UIView(), UIView()]
-    let winViews:[UIView] = [UIView(), UIView(), UIView()]
-    var winViewLabels:[UILabel] = []
+    var winViews:[WinViewStruct] = []                                       // instance of as-yet undefined: n-pass compilation like JS
 
     struct WinViewStruct
     {
@@ -36,20 +35,35 @@ class ViewController: UIViewController {
         var label = UILabel()
         var outline = UILabel()
         
-        func WinViewStruct(bounds:CGRect)
+        init(container:UIView, yOff:Int)
         {
             let labelSize:CGFloat = 80
             let fontName = "MarkerFelt-Wide"
             
-            label.textColor = UIColor.whiteColor()
+            label.textColor = UIColor.redColor()
             label.font = UIFont(name: fontName, size: labelSize)
-            outline.textColor = UIColor.blackColor()
-            outline.font = UIFont(name: fontName, size: labelSize + 10)
+            outline.textColor = UIColor.blueColor()
+            outline.font = UIFont(name: fontName, size: labelSize+10)
             view.addSubview(outline)                                        // This is Z-order?
             view.addSubview(label)
-            view.frame = bounds
+            view.frame = container.bounds
+            view.frame.size.height /= CGFloat(kNumSlots)
             view.backgroundColor = UIColor(white: 0, alpha: 0)
             view.transform = CGAffineTransformMakeScale(0, 0)
+            container.addSubview(view)
+        }
+
+        func setText(text:String)
+        {
+            func setText_A(label:UILabel)
+            {
+                label.text = text
+                label.sizeToFit()
+                label.center = view.center
+            }
+            
+            setText_A(label)
+            setText_A(outline)
         }
     }
     
@@ -81,7 +95,7 @@ class ViewController: UIViewController {
         }
         
     // First view: Title
-        var titleLabel = UILabel()
+        let titleLabel = UILabel()
         titleLabel.text = "Super Slots"                                // A        mutable let object
         titleLabel.textColor = UIColor.yellowColor()
         titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
@@ -117,18 +131,10 @@ class ViewController: UIViewController {
         }
         
     // Second view win views to show    Flush!    + 1!      expanding outward
-        winViews[0].frame.origin.x = secondView.bounds.origin.x //+ secondView.bounds.size.width * CGFloat(ixCol)/CGFloat(kNumCols)
-        winViews[0].frame.origin.y = secondView.bounds.origin.y //+ secondView.bounds.size.height * CGFloat(ixSlot)/CGFloat(kNumSlots)
-        winViews[0].frame.size.width = secondView.bounds.width ///CGFloat(kNumCols) - kColMargin
-        winViews[0].frame.size.height = secondView.bounds.height/CGFloat(kNumSlots) - kSlotMargin
-        secondView.addSubview(winViews[0])
-        winViews[0].backgroundColor = UIColor(white: 1, alpha: 0)
-        var label = UILabel()
-        label.textColor = UIColor.redColor()
-        label.font = UIFont(name: "MarkerFelt-Wide", size: 80)
-        self.winViews[0].transform = CGAffineTransformMakeScale(0, 0)
-        winViews[0].addSubview(label)
-        winViewLabels.append(label)
+        for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
+        {
+            winViews.append(WinViewStruct(container: secondView, yOff: ixSlot))
+        }
 
     // Third view: Score
         let thirdView = views[2]
@@ -148,15 +154,15 @@ class ViewController: UIViewController {
         SetLabel(winnerPaidLabel)
         
         // second func just to demo/test
-        func SetLabel_A(label:UILabel, text:NSString = "000000", pos:CGFloat = 1)  // opt param; cannot overload embed func
+        func SetLabel_A(label:UILabel, pos:CGFloat = 1)  // opt param; cannot overload embed func
         {
-            label.text = text
+            label.text = "000000"       // sets min width
             label.sizeToFit()
             label.center.x = thirdView.frame.width/6 * pos
         }
         
         SetLabel_A(creditsLabel)
-        SetLabel_A(betLabel, text:"0000", pos:3)                            // must have opt argument specifier
+        SetLabel_A(betLabel, pos:3)                            // must have opt argument specifier
         SetLabel_A(winnerPaidLabel, pos:5)
         
     // Third view title labels
@@ -338,25 +344,23 @@ class ViewController: UIViewController {
         }
     }
     
-    func animateText(view:UIView, strings:[String], ixStr:Int = 0)
+    func animateText(winview:WinViewStruct, strings:[String], ixStr:Int = 0)
     {
         if (strings.count <= ixStr)
         {
             return;
         }
         
-        var label = self.winViewLabels[0]
-        label.text = strings[ixStr]
-        label.sizeToFit()
-        label.center = winViews[0].center
+        winview.setText(strings[ixStr])
+        var view = winview.view
         
         UIView.animateWithDuration(1, delay:0,
             options: UIViewAnimationOptions.CurveEaseInOut,
             animations: {
-                self.winViews[0].transform = CGAffineTransformMakeScale(1, 1)
+                view.transform = CGAffineTransformMakeScale(1, 1)
             }, completion: { finished in
-                self.winViews[0].transform = CGAffineTransformMakeScale(0, 0)
-                self.animateText(view, strings: strings, ixStr:ixStr + 1)
+                view.transform = CGAffineTransformMakeScale(0, 0)
+                self.animateText(winview, strings: strings, ixStr:ixStr + 1)
             }
         )
     }
@@ -389,7 +393,7 @@ class ViewController: UIViewController {
                 }
                 
                 var strings = ["Flush!", "Bet 1", "+ 1"]
-                animateText(winViews[0], strings: strings)
+                animateText(winViews[ixSlot], strings: strings)
             }
         }
     }
@@ -411,16 +415,17 @@ class ViewController: UIViewController {
             wins = Factory.findWins(slots)
             winnings = 0
             
-            func computeAndShow(win:Int, mult:Int, allWin:Int, won1s:String, wonAllS:String) -> Int
+            func computeAndShow(win:[Int], mult:Int, allWin:Int, won1s:String, wonAllS:String) -> Int
             {
-                if (win > 0)
+                if (win.count > 0)
                 {
-                    let winMult = win * mult
+                    let winMult = win.count * mult
 
-                    alert(header: won1s, message: "\(win)x.  Bet $\(self.currentBet)  Won $\(winMult * self.currentBet)", callback:animateCards)
+                    alert(header: won1s, message: "\(win.count)x.  Bet $\(self.currentBet)  Won $\(winMult * self.currentBet)", callback:animateCards)
+                    
                     winnings += winMult
                     
-                    if (win == kNumSlots)
+                    if (win.count == kNumSlots)
                     {
                         alert(header: wonAllS, message: "$\(allWin) per bet.  Bet $\(self.currentBet)  Won $\(allWin * self.currentBet)")
                         winnings += allWin
@@ -434,9 +439,9 @@ class ViewController: UIViewController {
                 return 0
             }
             
-            var numTypesOfWin = computeAndShow(wins.flushes.count, 1, 25, "Flush!", "Royal Flush!")
-            numTypesOfWin += computeAndShow(wins.xsInArow.count, 1, 1000, "Straight!", "Epic Straight!")
-            numTypesOfWin += computeAndShow(wins.xsOfAkind.count, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
+            var numTypesOfWin = computeAndShow(wins.flushes, 1, 25, "Flush!", "Royal Flush!")
+            numTypesOfWin += computeAndShow(wins.xsInArow, 1, 1000, "Straight!", "Epic Straight!")
+            numTypesOfWin += computeAndShow(wins.xsOfAkind, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
             
             winnings *= currentBet
             
