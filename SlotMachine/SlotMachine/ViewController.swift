@@ -10,26 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]           // let makes the array immutable
-    let creditsLabel = UILabel()                                            // ...but not properties of object: mutable: A
-    let betLabel = UILabel()
-    let winnerPaidLabel = UILabel()
+    private let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]           // let makes the array immutable
+    private let creditsLabel = UILabel()                                            // ...but not properties of object: mutable: A
+    private let betLabel = UILabel()
+    private let winnerPaidLabel = UILabel()
     
-    let resetButton = UIButton()
-    let spinButton = UIButton()
+    private let resetButton = UIButton()
+    private let spinButton = UIButton()
     
-    var slots:[[Slot]] = []
-    var slotImageViews:[[UIImageView]] = []
+    private var slots:[[Slot]] = []
+    private var slotImageViews:[[UIImageView]] = []
     
     // Score
-    var credits = 0
-    var currentBet = 0
-    var winnings = 0
+    private var credits = 0
+    private var currentBet = 0
+    private var winnings = 0
 
-    let spinViews:[UIView] = [UIView(), UIView(), UIView()]
-    var winViews:[WinViewStruct] = []                                       // instance of as-yet undefined: n-pass compilation like JS
+    private let spinViews:[UIView] = [UIView(), UIView(), UIView()]
+    private var winViews:[WinViewStruct] = []                               // instance of as-yet undefined: n-pass compilation like JS
 
-    struct WinViewStruct
+    private struct WinViewStruct
     {
         var view = UIView()
         var label = UILabel()
@@ -40,14 +40,19 @@ class ViewController: UIViewController {
             let labelSize:CGFloat = 80
             let fontName = "MarkerFelt-Wide"
             
-            label.textColor = UIColor.redColor()
+            label.textColor = UIColor.yellowColor()
             label.font = UIFont(name: fontName, size: labelSize)
-            outline.textColor = UIColor.blueColor()
+            outline.textColor = UIColor.blackColor()
             outline.font = UIFont(name: fontName, size: labelSize+10)
-            view.addSubview(outline)                                        // This is Z-order?
+            outline.backgroundColor = UIColor(red: 0.2, green: 1, blue: 0.2, alpha: 0.4)
+            view.addSubview(outline)                                        // Seems to set Z-order
             view.addSubview(label)
             view.frame = container.bounds
-            view.frame.size.height /= CGFloat(kNumSlots)
+            
+            let height = view.frame.size.height / CGFloat(kNumSlots)
+            view.frame.size.height = height
+            view.frame.origin.y += CGFloat(yOff) * height
+            
             view.backgroundColor = UIColor(white: 0, alpha: 0)
             view.transform = CGAffineTransformMakeScale(0, 0)
             container.addSubview(view)
@@ -67,8 +72,10 @@ class ViewController: UIViewController {
         }
     }
     
-    private func createViews()
-    {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
         1 + 1                                                               // no lvalue builds just fine
 
         let kSumHeights:CGFloat = 6
@@ -207,18 +214,18 @@ class ViewController: UIViewController {
         SetButton("Spin", UIColor.greenColor(), "spinButtonPressed:", button:spinButton, pos:7)
     }
     
-    func updateScore()
+    private func updateScore()
     {
         creditsLabel.text = "$\(credits)"
         betLabel.text = "$\(currentBet)"
         winnerPaidLabel.text = "$\(winnings)"
     }
     
-    var alerting = false
-    var alerts:[(String, String)] = []
-    var callback_A:(() -> Void)! = nil
+    private var alerting = false
+    private var alerts:[(String, String)] = []
+    private var callback_A:(() -> Void)! = nil
     
-    func alert(header: String = "Whoops!", message: String, callback:(() -> Void)! = nil)        // Optional parameter must be last or spec param
+    private func alert(header: String = "Whoops!", message: String, callback:(() -> Void)! = nil)        // Optional parameter must be last or spec param
     {
         if (alerting)
         {
@@ -244,7 +251,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func nextAlert()
+    private func nextAlert()
     {
         self.alerting = false       // will toggle very quickly when popping from stack
         
@@ -266,7 +273,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func testCredits() -> Bool
+    private func testCredits() -> Bool
     {
         if (credits <= 0)
         {
@@ -288,13 +295,6 @@ class ViewController: UIViewController {
         return false
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
-        createViews()
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -306,7 +306,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func resetButtonPressed(button:UIButton)
+    func resetButtonPressed(button:UIButton)                            // Selector targets cannot be private
     {
         credits = 5
         winnings = 0
@@ -344,7 +344,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func animateText(winview:WinViewStruct, strings:[String], ixStr:Int = 0)
+    private func animateText(winview:WinViewStruct, strings:[String], ixStr:Int = 0)
     {
         if (strings.count <= ixStr)
         {
@@ -365,9 +365,9 @@ class ViewController: UIViewController {
         )
     }
     
-    var wins = Factory.WinsStruct()
+    private var wins = Factory.WinsStruct()
     
-    func animateCards()
+    private func animateCards()
     {
         func animateCard(view:UIImageView, delay:NSTimeInterval = 0)
         {
