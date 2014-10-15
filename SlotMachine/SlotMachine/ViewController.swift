@@ -11,17 +11,11 @@ import UIKit
 class ViewController: UIViewController {
 
     let views:[UIView] = [UIView(), UIView(), UIView(), UIView()]           // let makes the array immutable
-    let titleLabel = UILabel()                                              // ...but not properties of object: mutable: A
     let creditsLabel = UILabel()
     let betLabel = UILabel()
     let winnerPaidLabel = UILabel()
-    let creditsTitleLabel = UILabel()
-    let betTitleLabel = UILabel()
-    let winnerPaidTitleLabel = UILabel()
     
     let resetButton = UIButton()
-    let betOneButton = UIButton()
-    let betMaxButton = UIButton()
     let spinButton = UIButton()
     
     var slots:[[Slot]] = []
@@ -36,9 +30,28 @@ class ViewController: UIViewController {
     let winViews:[UIView] = [UIView(), UIView(), UIView()]
     var winViewLabels:[UILabel] = []
 
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
+    struct WinViewStruct
+    {
+        var view = UIView()
+        var label = UILabel()
+        var outline = UILabel()
+        
+        func WinViewStruct(bounds:CGRect)
+        {
+            let labelSize:CGFloat = 80
+            let fontName = "MarkerFelt-Wide"
+            
+            label.textColor = UIColor.whiteColor()
+            label.font = UIFont(name: fontName, size: labelSize)
+            outline.textColor = UIColor.blackColor()
+            outline.font = UIFont(name: fontName, size: labelSize + 10)
+            view.addSubview(outline)                                        // This is Z-order?
+            view.addSubview(label)
+            view.frame = bounds
+            view.backgroundColor = UIColor(white: 0, alpha: 0)
+            view.transform = CGAffineTransformMakeScale(0, 0)
+        }
+    }
     
     private func createViews()
     {
@@ -68,7 +81,8 @@ class ViewController: UIViewController {
         }
         
     // First view: Title
-        self.titleLabel.text = "Super Slots"                                // A        mutable let object
+        var titleLabel = UILabel()
+        titleLabel.text = "Super Slots"                                // A        mutable let object
         titleLabel.textColor = UIColor.yellowColor()
         titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
         titleLabel.sizeToFit()
@@ -146,7 +160,7 @@ class ViewController: UIViewController {
         SetLabel_A(winnerPaidLabel, pos:5)
         
     // Third view title labels
-        func SetTitleLabel(label:UILabel, text:NSString, pos:CGFloat = 1)
+        func SetTitleLabel(text:NSString, label:UILabel = UILabel(), pos:CGFloat = 1)
         {
             label.font = UIFont(name: "AmericanTypeWriter", size: 14)
             label.textColor = UIColor.blackColor()
@@ -158,12 +172,12 @@ class ViewController: UIViewController {
             label.center.x = thirdView.frame.width/6 * pos
         }
         
-        SetTitleLabel(self.creditsTitleLabel, "Credits")
-        SetTitleLabel(betTitleLabel, "Bet", pos:3)
-        SetTitleLabel(winnerPaidTitleLabel, "Winner Paid", pos:5)
+        SetTitleLabel("Credits")
+        SetTitleLabel("Bet", pos:3)
+        SetTitleLabel("Winner Paid", pos:5)
         
     // Fourth view: Buttons
-        func SetButton(button:UIButton, text:NSString, backColor:UIColor, callback:Selector, pos:CGFloat = 1)
+        func SetButton(text:NSString, backColor:UIColor, callback:Selector, button:UIButton = UIButton(), pos:CGFloat = 1)
         {
             let fourthView = self.views[3]
             
@@ -181,10 +195,10 @@ class ViewController: UIViewController {
         }
         
         // Build will succeed with functions undefined for given selectors
-        SetButton(self.resetButton, "Reset", UIColor.lightGrayColor(), "resetButtonPressed:")
-        SetButton(betOneButton, "Bet One", UIColor.greenColor(), "betOneButtonPressed:", pos:3)
-        SetButton(betMaxButton, "Bet Max", UIColor.redColor(), "betMaxButtonPressed:", pos:5)
-        SetButton(spinButton, "Spin", UIColor.greenColor(), "spinButtonPressed:", pos:7)
+        SetButton("Reset", UIColor.lightGrayColor(), "resetButtonPressed:", button:self.resetButton)
+        SetButton("Bet One", UIColor.greenColor(), "betOneButtonPressed:", pos:3)
+        SetButton("Bet Max", UIColor.redColor(), "betMaxButtonPressed:", pos:5)
+        SetButton("Spin", UIColor.greenColor(), "spinButtonPressed:", button:spinButton, pos:7)
     }
     
     func updateScore()
@@ -357,7 +371,6 @@ class ViewController: UIViewController {
                 options: UIViewAnimationOptions.CurveEaseInOut,
                 animations: { //() -> Void in     //   what; why optional
                     view.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
-                    self.winViews[0].transform = CGAffineTransformMakeScale(1, 1)
                 }, completion: { finished in
                     view.transform = CGAffineTransformMakeRotation(0)
                 }
@@ -375,7 +388,7 @@ class ViewController: UIViewController {
                     animateCard(slotImageViews[ixCol][ixSlot], delay: NSTimeInterval(Float(ixCol) * 0.2))
                 }
                 
-                var strings = ["", "Flush!", "Bet 1", "+ 1"]
+                var strings = ["Flush!", "Bet 1", "+ 1"]
                 animateText(winViews[0], strings: strings)
             }
         }
