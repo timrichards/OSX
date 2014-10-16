@@ -70,7 +70,7 @@ class ViewController: UIViewController {
             setText_A(outline)
         }
 
-        private func animateText(strings:[String], ixStr:Int = 0)
+        func animateText(strings:[String], ixStr:Int = 0)
         {
             if (strings.count <= ixStr)
             {
@@ -89,35 +89,6 @@ class ViewController: UIViewController {
                 }
             )
         }
-        
-        func animateText(ixWin:Int, bet:Int)
-        {
-            var report = WinViewStruct.reports[ixWin]               // must reference internal static vars as though external
-            var strings = [report.strOne, "Bet $\(bet)"]
-            
-            if (report.mult > 1)
-            {
-                strings.append("\(report.mult) X")
-            }
-            
-            strings.append("Won $\(bet * report.mult)")
-            animateText(strings)
-        }
-        
-        struct WinReports
-        {
-            // struct vars aren't vars: assigned when creating instance.
-            // struct inits don't work: e.g. vars are never given a value
-            var mult:Int
-            var all:Int
-            var strOne:String
-            var strAll:String
-        }
-        
-        static var flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
-        static var straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
-        static var xOfAkindReport = WinReports(mult: 3, all: 50, strOne: "\(kNumCols) of a Kind!", strAll: "\(kNumCols)'s All 'Round!")
-        static var reports = [flushReport, straightReport, xOfAkindReport]
     }
     
     override func viewDidLoad() {
@@ -328,13 +299,17 @@ class ViewController: UIViewController {
         {
             if (currentBet <= 0)
             {
-                self.alert(header: "No more credits!", message: "Reset game.")
                 resetButton.sendAction("resetButtonPressed:", to: nil, forEvent: nil)
+                winViews[1].animateText(["No more credits!", "Reset game."])
+            }
+            else
+            {
+                spinButton.sendAction("spinButtonPressed:", to: nil, forEvent: nil)
             }
         }
         else if (currentBet >= 5)
         {
-            self.alert(message: "You can only bet 5 credits at a time.")
+            spinButton.sendAction("spinButtonPressed:", to: nil, forEvent: nil)
         }
         else
         {
@@ -380,24 +355,29 @@ class ViewController: UIViewController {
         {
             if (credits < 5)
             {
-                self.alert(header: "Not enough credits!", message: "Bet less.")
+                currentBet += credits
+                credits = 0
             }
             else
             {
-                let creditsToBetMax = 5 - currentBet
-                
-                credits -= creditsToBetMax
-                currentBet += creditsToBetMax
-                updateScore()
+                credits -= 5 - currentBet
+                currentBet = 5
             }
+
+            updateScore()
         }
     }
     
     private var wins = Factory.WinsStruct()
-    private var displayBet = 0                  // deals with async anim after reset
+    private var displayBet = 0       // holds bet value though to callback as an int; prevents multiple animateCards() calls as a bool
     
     private func animateCards()     // must overload a function used as a parameter vs. using optional arguments
     {
+        if (displayBet == 0)
+        {
+            return
+        }
+        
         func animateCard(view:UIImageView, delay:NSTimeInterval = 0)
         {
             UIView.animateWithDuration(0.5, delay:delay,
@@ -414,12 +394,19 @@ class ViewController: UIViewController {
         {
             for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
             {
+                var strings:[String] = []       // function calls require explicit types: err: [String] is not identical to "any object":   C
+                
                 for var ixWin = 0; ixWin < kNumWins; ++ixWin
                 {
                     if (wins.orth[ixSlot][ixWin])
                     {
-                        winViews[ixSlot].animateText(ixWin, bet: displayBet)
+                        strings = Factory.WinsStruct.getAnimateText(ixWin, bet: displayBet)
                     }
+                }
+                
+                if (strings.count > 0)
+                {
+                    winViews[ixSlot].animateText(strings)      // chaining e.g. Flush then Straight.        C
                 }
             }
             
@@ -433,6 +420,8 @@ class ViewController: UIViewController {
                 }
             }
         }
+        
+        displayBet = 0
     }
     
     func spinButtonPressed(button:UIButton)
@@ -453,7 +442,7 @@ class ViewController: UIViewController {
             winnings = 0
             displayBet = currentBet
             
-            func computeAndShow(win:[Int], report:WinViewStruct.WinReports) -> Int
+            func computeAndShow(win:[Int], report:Factory.WinsStruct.WinReports) -> Int
             {
                 if (win.count > 0)
                 {
@@ -470,10 +459,6 @@ class ViewController: UIViewController {
                         
                         return 2
                     }
-                    else if (win.count > 1)
-                    {
-                        alert(header: report.strOne, message: "\(win.count)x.  Bet $\(self.currentBet)  Won $\(multBet)", callback:animateCards)
-                    }
                     else
                     {
                         animateCards()
@@ -485,9 +470,9 @@ class ViewController: UIViewController {
                 return 0
             }
             
-            var numTypesOfWin = computeAndShow(wins.flushes, WinViewStruct.flushReport)
-            numTypesOfWin += computeAndShow(wins.xsInArow, WinViewStruct.straightReport)
-            numTypesOfWin += computeAndShow(wins.xsOfAkind, WinViewStruct.xOfAkindReport)
+            var numTypesOfWin = computeAndShow(wins.flushes, Factory.WinsStruct.flushReport)
+            numTypesOfWin += computeAndShow(wins.xsInArow, Factory.WinsStruct.straightReport)
+            numTypesOfWin += computeAndShow(wins.xsOfAkind, Factory.WinsStruct.xOfAkindReport)
             
             winnings *= currentBet
             

@@ -82,6 +82,37 @@ class Factory
                 orth.append([false, false, false])  // kNumWins kinds of wins. Bool can be represented as 0 and not 0
             }
         }
+        
+        struct WinReports
+        {
+            // struct vars aren't vars: assigned when creating instance.
+            // struct inits don't work: e.g. vars are never given a value
+            var mult:Int
+            var all:Int
+            var strOne:String
+            var strAll:String
+        }
+        
+        // kNumWins kinds of wins
+        // classes can't have static vars but structs can
+        static var flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
+        static var straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
+        static var xOfAkindReport = WinReports(mult: 3, all: 50, strOne: "\(kNumCols) of a Kind!", strAll: "\(kNumCols)'s All 'Round!")
+        static var reports = [flushReport, straightReport, xOfAkindReport]
+        
+        static func getAnimateText(ixWin:Int, bet:Int) -> [String]
+        {
+            var report = Factory.WinsStruct.reports[ixWin]       // must reference internal static vars as though external
+            var strings = [report.strOne, "Bet $\(bet)"]
+            
+            if (report.mult > 1)
+            {
+                strings.append("\(report.mult) X")
+            }
+            
+            strings.append("Won $\(bet * report.mult)")
+            return strings
+        }
     }
 
     class func findWins(slots:[[Slot]]) -> WinsStruct
