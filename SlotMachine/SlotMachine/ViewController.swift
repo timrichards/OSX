@@ -40,13 +40,12 @@ class ViewController: UIViewController {
             let labelSize:CGFloat = 80
             let fontName = "MarkerFelt-Wide"
             
-            label.text = "XXXXX"
             label.textColor = UIColor.yellowColor()
             label.font = UIFont(name: fontName, size: labelSize)
             outline.textColor = UIColor.blackColor()
             outline.font = UIFont(name: fontName, size: labelSize+10)
             outline.backgroundColor = UIColor(red: 0.2, green: 1, blue: 0.2, alpha: 0.3)
-            view.addSubview(outline)                                        // Seems to set Z-order
+            view.addSubview(outline)                                                // Seems to set Z-order
             view.addSubview(label)
             
             view.frame = container.bounds
@@ -71,7 +70,7 @@ class ViewController: UIViewController {
             setText_A(outline)
         }
 
-        func animateText(strings:[String], ixStr:Int = 0)
+        private func animateText(strings:[String], ixStr:Int = 0)
         {
             if (strings.count <= ixStr)
             {
@@ -90,13 +89,42 @@ class ViewController: UIViewController {
                 }
             )
         }
+        
+        func animateText(ixWin:Int, bet:Int)
+        {
+            var report = WinViewStruct.reports[ixWin]               // must reference internal static vars as though external
+            var strings = [report.strOne, "Bet $\(bet)"]
+            
+            if (report.mult > 1)
+            {
+                strings.append("\(report.mult) X")
+            }
+            
+            strings.append("Won $\(bet * report.mult)")
+            animateText(strings)
+        }
+        
+        struct WinReports
+        {
+            // struct vars aren't vars: assigned when creating instance.
+            // struct inits don't work: e.g. vars are never given a value
+            var mult:Int
+            var all:Int
+            var strOne:String
+            var strAll:String
+        }
+        
+        static var flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
+        static var straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
+        static var xOfAkindReport = WinReports(mult: 3, all: 50, strOne: "\(kNumCols) of a Kind!", strAll: "\(kNumCols)'s All 'Round!")
+        static var reports = [flushReport, straightReport, xOfAkindReport]
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        1 + 1                                                               // no lvalue builds just fine
+        1 + 1                                                                   // no lvalue builds just fine
 
         let kSumHeights:CGFloat = 6
         let heights:[CGFloat] = [1, 3, 1, 1]
@@ -123,7 +151,7 @@ class ViewController: UIViewController {
         
     // First view: Title
         let titleLabel = UILabel()
-        titleLabel.text = "Super Slots"                                // A        mutable let object
+        titleLabel.text = "Super Slots"                                         // A        mutable let object
         titleLabel.textColor = UIColor.yellowColor()
         titleLabel.font = UIFont(name: "MarkerFelt-Wide", size: 40)
         titleLabel.sizeToFit()
@@ -135,7 +163,7 @@ class ViewController: UIViewController {
         let kSlotMargin:CGFloat = 2
         let secondView = views[1]
         
-        for var ixCol = 0; ixCol < kNumCols; ++ixCol          // kNumCols; kNumSlots are in Factory.swift
+        for var ixCol = 0; ixCol < kNumCols; ++ixCol                            // kNumCols; kNumSlots are in Factory.swift
         {
             slotImageViews.append([])
             
@@ -181,15 +209,15 @@ class ViewController: UIViewController {
         SetLabel(winnerPaidLabel)
         
         // second func just to demo/test
-        func SetLabel_A(label:UILabel, pos:CGFloat = 1)  // opt param; cannot overload embed func
+        func SetLabel_A(label:UILabel, pos:CGFloat = 1)                     // opt param; cannot overload embed func
         {
-            label.text = "000000"       // sets min width
+            label.text = "000000"                                           // sets min width
             label.sizeToFit()
             label.center.x = thirdView.frame.width/6 * pos
         }
         
         SetLabel_A(creditsLabel)
-        SetLabel_A(betLabel, pos:3)                            // must have opt argument specifier
+        SetLabel_A(betLabel, pos:3)                                         // must have opt argument specifier
         SetLabel_A(winnerPaidLabel, pos:5)
         
     // Third view title labels
@@ -220,8 +248,9 @@ class ViewController: UIViewController {
             button.center.y = fourthView.frame.height/2
             fourthView.addSubview(button)
  
-            button.setTitle(text, forState: UIControlState.Normal)
+            button.setTitle("Bet Max", forState: UIControlState.Normal)        // longest text here to unify widths
             button.sizeToFit()
+            button.setTitle(text, forState: UIControlState.Normal)
             button.backgroundColor = backColor
             button.center.x = fourthView.frame.width/8 * pos
             button.addTarget(self, action: callback, forControlEvents: UIControlEvents.TouchUpInside)
@@ -273,7 +302,7 @@ class ViewController: UIViewController {
     
     private func nextAlert()
     {
-        self.alerting = false       // will toggle very quickly when popping from stack
+        self.alerting = false                                               // will toggle very quickly when popping from stack
         
         if (self.alerts.count > 0)
         {
@@ -365,8 +394,9 @@ class ViewController: UIViewController {
     }
     
     private var wins = Factory.WinsStruct()
+    private var displayBet = 0                  // deals with async anim after reset
     
-    private func animateCards()
+    private func animateCards()     // must overload a function used as a parameter vs. using optional arguments
     {
         func animateCard(view:UIImageView, delay:NSTimeInterval = 0)
         {
@@ -382,6 +412,17 @@ class ViewController: UIViewController {
         
         if (wins.any.count > 0)
         {
+            for var ixSlot = 0; ixSlot < kNumSlots; ++ixSlot
+            {
+                for var ixWin = 0; ixWin < kNumWins; ++ixWin
+                {
+                    if (wins.orth[ixSlot][ixWin])
+                    {
+                        winViews[ixSlot].animateText(ixWin, bet: displayBet)
+                    }
+                }
+            }
+            
             for var deixSlot = 0; deixSlot < wins.any.count; ++deixSlot
             {
                 var ixSlot = wins.any[deixSlot]
@@ -390,8 +431,6 @@ class ViewController: UIViewController {
                 {
                     animateCard(slotImageViews[ixCol][ixSlot], delay: NSTimeInterval(Float(ixCol) * 0.2))
                 }
-                
-                winViews[ixSlot].animateText(["Flush!", "Bet 1", "+ 1"])
             }
         }
     }
@@ -412,23 +451,32 @@ class ViewController: UIViewController {
         {
             wins = Factory.findWins(slots)
             winnings = 0
+            displayBet = currentBet
             
-            func computeAndShow(win:[Int], mult:Int, allWin:Int, won1s:String, wonAllS:String) -> Int
+            func computeAndShow(win:[Int], report:WinViewStruct.WinReports) -> Int
             {
                 if (win.count > 0)
                 {
-                    let winMult = win.count * mult
-
-                    alert(header: won1s, message: "\(win.count)x.  Bet $\(self.currentBet)  Won $\(winMult * self.currentBet)", callback:animateCards)
+                    let winMult = report.mult * win.count
+                    let multBet = winMult * self.currentBet
+                    let allBet = report.all * self.currentBet
                     
-                    winnings += winMult
+                    winnings += winMult             // currentBet is multiplied in by the caller
                     
                     if (win.count == kNumSlots)
                     {
-                        alert(header: wonAllS, message: "$\(allWin) per bet.  Bet $\(self.currentBet)  Won $\(allWin * self.currentBet)")
-                        winnings += allWin
+                        alert(header: report.strAll, message: "$\(report.all) per bet.  Bet $\(self.currentBet)  Won $\(allBet) + $\(multBet)", callback:animateCards)
+                        winnings += report.all      // currentBet is multiplied in by the caller
                         
                         return 2
+                    }
+                    else if (win.count > 1)
+                    {
+                        alert(header: report.strOne, message: "\(win.count)x.  Bet $\(self.currentBet)  Won $\(multBet)", callback:animateCards)
+                    }
+                    else
+                    {
+                        animateCards()
                     }
                     
                     return 1
@@ -437,15 +485,15 @@ class ViewController: UIViewController {
                 return 0
             }
             
-            var numTypesOfWin = computeAndShow(wins.flushes, 1, 25, "Flush!", "Royal Flush!")
-            numTypesOfWin += computeAndShow(wins.xsInArow, 1, 1000, "Straight!", "Epic Straight!")
-            numTypesOfWin += computeAndShow(wins.xsOfAkind, 3, 50, "\(kNumCols) of a Kind!", "\(kNumCols)'s All 'Round!")
+            var numTypesOfWin = computeAndShow(wins.flushes, WinViewStruct.flushReport)
+            numTypesOfWin += computeAndShow(wins.xsInArow, WinViewStruct.straightReport)
+            numTypesOfWin += computeAndShow(wins.xsOfAkind, WinViewStruct.xOfAkindReport)
             
             winnings *= currentBet
             
             if (numTypesOfWin > 1)
             {
-                alert(header: "Total Wins!", message: "+ $\(winnings)")
+         //       alert(header: "Total Wins!", message: "+ $\(winnings)")
             }
             
             credits += winnings

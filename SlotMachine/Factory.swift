@@ -11,6 +11,7 @@ import Foundation
 
 let kNumCols = 3
 let kNumSlots = 3
+let kNumWins = 3
 
 struct Slot
 {
@@ -71,7 +72,16 @@ class Factory
         var any:[Int] = []
         var flushes:[Int] = []
         var xsInArow:[Int] = []
-        var xsOfAkind:[Int] = []
+        var xsOfAkind:[Int] = []    // kNumWins kinds of wins
+        var orth:[[Bool]] = []
+        
+        init()
+        {
+            for var i = 0; i < kNumSlots; ++i
+            {
+                orth.append([false, false, false])  // kNumWins kinds of wins. Bool can be represented as 0 and not 0
+            }
+        }
     }
 
     class func findWins(slots:[[Slot]]) -> WinsStruct
@@ -120,16 +130,19 @@ class Factory
             if (isFlush)
             {
                 wins.flushes.append(nSlot)
+                wins.orth[nSlot][0] = true
             }
             
             if (isXinArow)
             {
                 wins.xsInArow.append(nSlot)
+                wins.orth[nSlot][1] = true
             }
             
             if (isXofAkind)
             {
                 wins.xsOfAkind.append(nSlot)
+                wins.orth[nSlot][2] = true
             }
             
             if (isFlush || isXinArow || isXofAkind)
