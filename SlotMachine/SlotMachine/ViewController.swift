@@ -368,8 +368,8 @@ class ViewController: UIViewController {
         }
     }
     
-    private var wins = Factory.WinsStruct()
-    private var displayBet = 0       // holds bet value though to callback as an int; prevents multiple animateCards() calls as a bool
+    private var wins = Factory.WinsStruct()       // must be initialized despite throwing away initial value
+    private var displayBet = 0       // holds bet value through to callback as an int; prevents multiple animateCards() calls as a bool
     
     private func animateCards()     // must overload a function used as a parameter vs. using optional arguments
     {
@@ -400,13 +400,13 @@ class ViewController: UIViewController {
                 {
                     if (wins.orth[ixSlot][ixWin])
                     {
-                        strings = Factory.WinsStruct.getAnimateText(ixWin, bet: displayBet)
+                        strings.extend(Factory.WinsStruct.getAnimateText(ixWin, bet: displayBet))
                     }
                 }
                 
                 if (strings.count > 0)
                 {
-                    winViews[ixSlot].animateText(strings)      // chaining e.g. Flush then Straight.        C
+                    winViews[ixSlot].animateText(strings)      // chaining e.g. 3 of a Kind always follows Flush.        C
                 }
             }
             

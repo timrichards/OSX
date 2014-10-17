@@ -94,15 +94,15 @@ class Factory
         }
         
         // kNumWins kinds of wins
-        // classes can't have static vars but structs can
-        static var flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
-        static var straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
-        static var xOfAkindReport = WinReports(mult: 3, all: 50, strOne: "\(kNumCols) of a Kind!", strAll: "\(kNumCols)'s All 'Round!")
-        static var reports = [flushReport, straightReport, xOfAkindReport]
+        // classes can't have static vars but structs can. Does let consume n instances more resources than static let?
+        static let flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
+        static let straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
+        static let xOfAkindReport = WinReports(mult: 3, all: 50, strOne: "\(kNumCols) of a Kind!", strAll: "\(kNumCols)'s All 'Round!")
+        static let reports = [flushReport, straightReport, xOfAkindReport]
         
         static func getAnimateText(ixWin:Int, bet:Int) -> [String]
         {
-            var report = Factory.WinsStruct.reports[ixWin]       // must reference internal static vars as though external
+            let report = Factory.WinsStruct.reports[ixWin]       // must reference internal static vars as though external
             var strings = [report.strOne, "Bet $\(bet)"]
             
             if (report.mult > 1)
