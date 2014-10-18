@@ -11,7 +11,7 @@ import Foundation
 
 let kNumCols = 3
 let kNumSlots = 3
-let kNumWins = 3
+let kNumWinTypes = 3
 
 struct Slot
 {
@@ -70,16 +70,18 @@ class Factory
     struct WinsStruct
     {
         var any:[Int] = []
-        var flushes:[Int] = []
+        
+        var xsOfAkind:[Int] = []    // kNumWinTypes kinds of wins
         var xsInArow:[Int] = []
-        var xsOfAkind:[Int] = []    // kNumWins kinds of wins
+        var flushes:[Int] = []
+        
         var orth:[[Bool]] = []
         
         init()
         {
             for var i = 0; i < kNumSlots; ++i
             {
-                orth.append([false, false, false])  // kNumWins kinds of wins. Bool can be represented as 0 and not 0
+                orth.append([false, false, false])  // kNumWinTypes kinds of wins. Bool can be represented as 0 and not 0
             }
         }
         
@@ -93,12 +95,12 @@ class Factory
             var strAll:String
         }
         
-        // kNumWins kinds of wins
+        // kNumWinTypes kinds of wins
         // classes can't have static vars but structs can. Does let consume n instances more resources than static let?
-        static let flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
-        static let straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
         static let xOfAkindReport = WinReports(mult: 3, all: 50, strOne: "\(kNumCols) of a Kind!", strAll: "\(kNumCols)'s All 'Round!")
-        static let reports = [flushReport, straightReport, xOfAkindReport]
+        static let straightReport = WinReports(mult: 1, all: 1000, strOne: "Straight!", strAll: "Epic Straight!")
+        static let flushReport = WinReports(mult: 1, all: 25, strOne: "Flush!", strAll: "Royal Flush!")
+        static let reports = [xOfAkindReport, straightReport, flushReport]
         
         static func getAnimateText(ixWin:Int, bet:Int) -> [String]
         {
@@ -121,14 +123,11 @@ class Factory
         
         for var nSlot = 0; nSlot < kNumSlots; ++nSlot
         {
-            var isRed = slots[0][nSlot].isRed
-            var isFlush = true
+        // X of a Kind
+            var nXofAkind = slots[0][nSlot].value
+            var isXofAkind = true
             
-            if (isRed != slots[1][nSlot].isRed)
-            {
-                isFlush = false
-            }
-            
+        // Straight
             var trajXinARow = slots[1][nSlot].value - slots[0][nSlot].value
             var isXinArow = false
             
@@ -137,14 +136,20 @@ class Factory
                 isXinArow = true
             }
             
-            var nXofAkind = slots[0][nSlot].value
-            var isXofAkind = true
+        // Flush
+            var isRed = slots[0][nSlot].isRed
+            var isFlush = true
+            
+            if (isRed != slots[1][nSlot].isRed)
+            {
+                isFlush = false
+            }
             
             for var nCol = 1; nCol < kNumCols; ++nCol
             {
-                if (isFlush && (isRed != slots[nCol][nSlot].isRed))
+                if (isXofAkind && (nXofAkind != slots[nCol][nSlot].value))
                 {
-                    isFlush = false
+                    isXofAkind = false
                 }
                 
                 if ((nCol > 1) && isXinArow && (trajXinARow != slots[nCol][nSlot].value - slots[nCol-1][nSlot].value))
@@ -152,15 +157,15 @@ class Factory
                     isXinArow = false
                 }
                 
-                if (isXofAkind && (nXofAkind != slots[nCol][nSlot].value))
+                if (isFlush && (isRed != slots[nCol][nSlot].isRed))
                 {
-                    isXofAkind = false
+                    isFlush = false
                 }
             }
             
-            if (isFlush)
+            if (isXofAkind)
             {
-                wins.flushes.append(nSlot)
+                wins.xsOfAkind.append(nSlot)
                 wins.orth[nSlot][0] = true
             }
             
@@ -170,13 +175,13 @@ class Factory
                 wins.orth[nSlot][1] = true
             }
             
-            if (isXofAkind)
+            if (isFlush)
             {
-                wins.xsOfAkind.append(nSlot)
+                wins.flushes.append(nSlot)
                 wins.orth[nSlot][2] = true
             }
             
-            if (isFlush || isXinArow || isXofAkind)
+            if (isXofAkind || isXinArow || isFlush)
             {
                 wins.any.append(nSlot)
             }

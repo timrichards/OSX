@@ -51,7 +51,7 @@ class ViewController: UIViewController {
             view.frame = container.bounds
             
             view.frame.size.height /= CGFloat(kNumSlots)
-            view.frame.origin.y = CGFloat(ixSlot) * view.frame.height / 2
+            view.frame.origin.y = CGFloat(ixSlot) * view.frame.height / 2           // TODO: What are the geometries here
             view.backgroundColor = UIColor(white: 0, alpha: 0)
             view.transform = CGAffineTransformMakeScale(0, 0)
             container.addSubview(view)
@@ -72,22 +72,20 @@ class ViewController: UIViewController {
 
         func animateText(strings:[String], ixStr:Int = 0)
         {
-            if (strings.count <= ixStr)
+            if (ixStr < strings.count)
             {
-                return;
+                setText(strings[ixStr])
+                
+                UIView.animateWithDuration(1, delay:0,
+                    options: UIViewAnimationOptions.CurveEaseInOut,
+                    animations: {
+                        self.view.transform = CGAffineTransformMakeScale(1, 1)
+                    }, completion: { finished in
+                        self.view.transform = CGAffineTransformMakeScale(0, 0)
+                        self.animateText(strings, ixStr:ixStr + 1)
+                    }
+                )
             }
-            
-            setText(strings[ixStr])
-            
-            UIView.animateWithDuration(1, delay:0,
-                options: UIViewAnimationOptions.CurveEaseInOut,
-                animations: {
-                    self.view.transform = CGAffineTransformMakeScale(1, 1)
-                }, completion: { finished in
-                    self.view.transform = CGAffineTransformMakeScale(0, 0)
-                    self.animateText(strings, ixStr:ixStr + 1)
-                }
-            )
         }
     }
     
@@ -107,7 +105,7 @@ class ViewController: UIViewController {
         for (i, view) in enumerate(views)
         {
             view.frame.origin.x = self.view.bounds.origin.x + kMarginForView
-            view.frame.size.width = self.view.bounds.width - (2*kMarginForView)
+            view.frame.size.width = self.view.bounds.width - (2 * kMarginForView)
             
             let height = self.view.bounds.height/kSumHeights * heights[i]
             view.frame.size.height = height
@@ -396,7 +394,7 @@ class ViewController: UIViewController {
             {
                 var strings:[String] = []       // function calls require explicit types: err: [String] is not identical to "any object":   C
                 
-                for var ixWin = 0; ixWin < kNumWins; ++ixWin
+                for var ixWin = 0; ixWin < kNumWinTypes; ++ixWin        // kNumWinTypes is in Factory.swift
                 {
                     if (wins.orth[ixSlot][ixWin])
                     {
@@ -406,7 +404,7 @@ class ViewController: UIViewController {
                 
                 if (strings.count > 0)
                 {
-                    winViews[ixSlot].animateText(strings)      // chaining e.g. 3 of a Kind always follows Flush.        C
+                    winViews[ixSlot].animateText(strings)      // chaining e.g. Flush always follows 3 of a Kind.        C
                 }
             }
             
@@ -470,9 +468,9 @@ class ViewController: UIViewController {
                 return 0
             }
             
-            var numTypesOfWin = computeAndShow(wins.flushes, Factory.WinsStruct.flushReport)
+            var numTypesOfWin = computeAndShow(wins.xsOfAkind, Factory.WinsStruct.xOfAkindReport)
             numTypesOfWin += computeAndShow(wins.xsInArow, Factory.WinsStruct.straightReport)
-            numTypesOfWin += computeAndShow(wins.xsOfAkind, Factory.WinsStruct.xOfAkindReport)
+            numTypesOfWin += computeAndShow(wins.flushes, Factory.WinsStruct.flushReport)
             
             winnings *= currentBet
             
