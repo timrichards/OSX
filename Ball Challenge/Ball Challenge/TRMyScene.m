@@ -28,12 +28,13 @@
     
     struct Props
     {
+        float mass;
         float restitution;
         float linearDamping;
         float friction;
     };
     
-    static struct Props props[] = {{1,1,1}, {0,0,0}, {.5,.5,.5}};
+    static struct Props props[] = {{.1,.9,.9,.9}, {.9,.1,.1,.1}, {.7,.5,.5,.5}};
     
     for (UITouch *touch in touches) {
         int ixBall = arc4random_uniform(3);
@@ -43,12 +44,13 @@
         
         ball.position = location;
         ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.size.width/2];
+        ball.physicsBody.mass = props[ixBall].mass;
         ball.physicsBody.restitution = props[ixBall].restitution;
         ball.physicsBody.linearDamping = props[ixBall].linearDamping;
         ball.physicsBody.friction = props[ixBall].friction;
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
+     //   SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
         
-        [ball runAction:[SKAction repeatActionForever:action]];
+     //   [ball runAction:[SKAction repeatActionForever:action]];
         
         [self addChild:ball];
     }
