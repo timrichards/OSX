@@ -29,8 +29,8 @@
     struct Props
     {
         float mass;
-        float restitution;
-        float linearDamping;
+        float restitution;          // bounciness
+        float linearDamping;        // fluid effect of e.g. air friction
         float friction;
     };
     
@@ -48,9 +48,21 @@
         ball.physicsBody.restitution = props[ixBall].restitution;
         ball.physicsBody.linearDamping = props[ixBall].linearDamping;
         ball.physicsBody.friction = props[ixBall].friction;
-     //   SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
         
-     //   [ball runAction:[SKAction repeatActionForever:action]];
+        if (arc4random_uniform(3) > 1)
+        {
+            SKAction *action = [SKAction rotateByAngle:arc4random_uniform(2*M_PI)-M_PI duration:1];
+            
+            [ball runAction:[SKAction repeatActionForever:action]];
+        }
+        
+        if (arc4random_uniform(3) > 1)
+        {
+            ball.physicsBody.mass = 0;
+            ball.physicsBody.restitution = 1;
+            ball.physicsBody.linearDamping = 0;
+     //       ball.physicsBody.friction = props[ixBall].friction;
+        }
         
         [self addChild:ball];
     }
