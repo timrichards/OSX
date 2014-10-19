@@ -16,20 +16,36 @@
         
         self.backgroundColor = [SKColor whiteColor];
     }
+
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     return self;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
     
-    NSString *arrImages[] = {@"BeachBall", @"8Ball", @"SoccerBall"};
+    static NSString *arrImages[] = {@"BeachBall", @"8Ball", @"SoccerBall"};
+    
+    struct Props
+    {
+        float restitution;
+        float linearDamping;
+        float friction;
+    };
+    
+    static struct Props props[] = {{1,1,1}, {0,0,0}, {.5,.5,.5}};
     
     for (UITouch *touch in touches) {
-        SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:arrImages[arc4random_uniform(3)]];
+        int ixBall = arc4random_uniform(3);
+        
+        SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:arrImages[ixBall]];
         CGPoint location = [touch locationInNode:self];
         
         ball.position = location;
-        
+        ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.size.width/2];
+        ball.physicsBody.restitution = props[ixBall].restitution;
+        ball.physicsBody.linearDamping = props[ixBall].linearDamping;
+        ball.physicsBody.friction = props[ixBall].friction;
         SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
         
         [ball runAction:[SKAction repeatActionForever:action]];
