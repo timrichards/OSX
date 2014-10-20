@@ -9,6 +9,9 @@
 #import "TRMyScene.h"
 
 @implementation TRMyScene
+{
+    SKSpriteNode *_lastBall;
+}
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -18,6 +21,7 @@
     }
 
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
     return self;
 }
 
@@ -37,34 +41,44 @@
     static struct Props props[] = {{.1,.9,.9,.9}, {.9,.1,.1,.1}, {.7,.5,.5,.5}};
     
     for (UITouch *touch in touches) {
+        if (self.children.count >= 10)
+        {
+            [self removeAllChildren];
+        }
+        
         int ixBall = arc4random_uniform(3);
         
-        SKSpriteNode *ball = [SKSpriteNode spriteNodeWithImageNamed:arrImages[ixBall]];
+        _lastBall = [SKSpriteNode spriteNodeWithImageNamed:arrImages[ixBall]];
         CGPoint location = [touch locationInNode:self];
         
-        ball.position = location;
-        ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:ball.size.width/2];
-        ball.physicsBody.mass = props[ixBall].mass;
-        ball.physicsBody.restitution = props[ixBall].restitution;
-        ball.physicsBody.linearDamping = props[ixBall].linearDamping;
-        ball.physicsBody.friction = props[ixBall].friction;
+        _lastBall.position = location;
+        _lastBall.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:_lastBall.size.width/2];
+        _lastBall.physicsBody.mass = props[ixBall].mass;
+        _lastBall.physicsBody.restitution = props[ixBall].restitution;
+        _lastBall.physicsBody.linearDamping = props[ixBall].linearDamping;
+        _lastBall.physicsBody.friction = props[ixBall].friction;
         
         if (arc4random_uniform(3) > 1)
         {
-            SKAction *action = [SKAction rotateByAngle:arc4random_uniform(2*M_PI)-M_PI duration:1];
+            _lastBall.physicsBody.mass = 0;
+            _lastBall.physicsBody.restitution = 1;
+            _lastBall.physicsBody.linearDamping = 0;
+        }
+        
+        [self addChild:_lastBall];
+        
+        float thrust = 512 + arc4random_uniform(512);
+        float vector = arc4random_uniform(200*M_PI)/100.0;
+        
+        printf("%f %f\n", thrust, vector);
+        [_lastBall.physicsBody applyForce:CGVectorMake(thrust*cosf(vector), thrust*sinf(vector))];
+
+        if (arc4random_uniform(3) > 1)
+        {
+            SKAction *action = [SKAction rotateByAngle:arc4random_uniform(200*M_PI)/100.0-M_PI duration:1];
             
-            [ball runAction:[SKAction repeatActionForever:action]];
+            [_lastBall runAction:[SKAction repeatActionForever:action]];
         }
-        
-        if (arc4random_uniform(3) > 1)
-        {
-            ball.physicsBody.mass = 0;
-            ball.physicsBody.restitution = 1;
-            ball.physicsBody.linearDamping = 0;
-     //       ball.physicsBody.friction = props[ixBall].friction;
-        }
-        
-        [self addChild:ball];
     }
 }
 
