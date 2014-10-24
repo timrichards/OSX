@@ -6,13 +6,12 @@
 //  Copyright (c) 2014 Tim. All rights reserved.
 //
 
-// test commit
-
 #import "TRMyScene.h"
 
 @implementation TRMyScene
 {
     SKSpriteNode *_lastBall;
+    CGVector _initialGravity;
 }
 
 -(id)initWithSize:(CGSize)size {    
@@ -23,6 +22,7 @@
     }
 
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    _initialGravity = self.physicsWorld.gravity;
     self.physicsWorld.gravity = CGVectorMake(0, 0);
     return self;
 }
@@ -65,6 +65,13 @@
             _lastBall.physicsBody.mass = 0;
             _lastBall.physicsBody.restitution = 1;
             _lastBall.physicsBody.linearDamping = 0;
+        }
+        
+        if (arc4random_uniform(3) > 1)
+        {
+            self.physicsWorld.gravity = (self.physicsWorld.gravity.dy == 0)
+                ? _initialGravity
+                : CGVectorMake(0, 0);
         }
         
         [self addChild:_lastBall];
