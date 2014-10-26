@@ -12,11 +12,13 @@
 {
     SKSpriteNode *_lastBall;
     CGVector _initialGravity;
-    
+    int _nTextUpdate;
+    //const NSString *ksBall = @"ball";             // can't set a value here and some objects aren't primitive enough
 }
 
-const NSString *ksBall = @"ball";
+const NSString *ksBall = @"ball";                   // but where is "here?
 const NSString *ksTextHolder = @"textHolder";
+const NSString *ksTextUpdate = @"textUpdate";
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -26,6 +28,7 @@ const NSString *ksTextHolder = @"textHolder";
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         _initialGravity = self.physicsWorld.gravity;
         self.physicsWorld.gravity = CGVectorMake(0, 0);
+        _nTextUpdate = 0;
     }
 
     return self;
@@ -153,15 +156,23 @@ const NSString *ksTextHolder = @"textHolder";
         thrust,
         vector};
     
+    SKLabelNode *updateNode = NULL;
+    
     for (int i = 0; i<kLabelItems; ++i)
     {
         SKLabelNode *labelNode = [self makeLabelNode:[NSString stringWithFormat:labelFormats[i], labelValues[i]]];          // multiline \r\n do not work in SKLAbelNodes
         labelNode.position = CGPointMake(radius, radius - i * labelNode.frame.size.height);
         [textHolder addChild:labelNode];
+        
+        if (updateNode == NULL)
+        {
+            updateNode = labelNode;         // just hack in the first label node to update text while the ball flies around
+        }
     }
+    
+    updateNode.name = ksTextUpdate;
 }
 
-//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 -(SKLabelNode*)makeLabelNode:(NSString *)text
 {
     SKLabelNode *labelNode = [SKLabelNode labelNodeWithFontNamed:@"Skia"];
@@ -183,22 +194,19 @@ const NSString *ksTextHolder = @"textHolder";
             [node removeFromParent];
         }
         
-        [node enumerateChildNodesWithName:ksTextHolder usingBlock:^(SKNode *child, BOOL *stop) {
-            child.zRotation = -node.zRotation;
+        [node enumerateChildNodesWithName:ksTextHolder usingBlock:^(SKNode *textHolder, BOOL *stop) {
+            textHolder.zRotation = -node.zRotation;
+            
+            [textHolder enumerateChildNodesWithName:ksTextUpdate usingBlock:^(SKNode *labelNode, BOOL *stop) {
+                ((SKLabelNode*)labelNode).text = [NSString stringWithFormat:@"%i", _nTextUpdate++];
+            }];
         }];
-
-//        for (SKNode *child in node.children)
-//        {
-//        }
     }];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
-    [self enumerateChildNodesWithName:ksBall usingBlock:^(SKNode *node, BOOL *stop) {
-      //  SKSpriteNode *ball = (SKSpriteNode*)node;
-        
-    }];
+
 }
 
 @end
